@@ -1,0 +1,36 @@
+# Тестовый стенд: Render (web) + Neon (PostgreSQL). Прототип отдаётся статикой, API — /api/*.
+services:
+  - type: web
+    name: vexel
+    runtime: node
+    plan: free
+    rootDir: web
+    buildCommand: npm ci && npm run build
+    # миграции идемпотентны — применяются при каждом старте
+    startCommand: node scripts/migrate.mjs && node .output/server/index.mjs
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NUXT_DATABASE_URL          # строка подключения Neon (…?sslmode=require)
+        sync: false
+      - key: NUXT_SECRET                # HMAC кодов и ключ шифрования выдач — не менять после запуска
+        generateValue: true
+      - key: NUXT_COOKIE_SECURE
+        value: "true"
+      - key: NUXT_PAYMENT_PROVIDER
+        value: test
+      - key: NUXT_MAIL_PROVIDER         # unisender — письма уходят; log — только в журнал сервера (коды тогда видны на экране стенда)
+        value: unisender
+      - key: NUXT_UNISENDER_KEY
+        sync: false
+      - key: NUXT_UNISENDER_URL         # goapi…; если ключ из go1/go2 — адрес из кабинета
+        value: https://goapi.unisender.ru/ru/transactional/api/v1
+      - key: NUXT_MAIL_FROM             # адрес на домене, подтверждённом в Unisender Go
+        value: noreply@fridrixdev.ru     # замените на адрес домена Vexel
+      - key: NUXT_DEV_CODES             # только стенд: код приходит в ответе и показывается на экране
+        value: "true"
+      - key: NUXT_PUBLIC_SITE_URL       # для ссылок в письмах
+        value: https://vexel.onrender.com
+      - key: NUXT_ADMIN_NOTIFY_EMAIL    # кому писать о новых заказах, KYC и возвратах (через запятую)
+        sync: false

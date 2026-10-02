@@ -1,0 +1,50 @@
+/* ——— FAQ ——— */
+.sec-row{display:flex; flex-direction:row; justify-content:space-between; align-items:flex-end; gap:12px 32px; flex-wrap:wrap; max-width:none; margin-block-end:18px}
+.sec-row > div{display:flex; flex-direction:column; gap:10px; min-width:0}
+.sec-row .search{flex:0 1 360px; width:100%; max-width:360px; margin-block-end:2px}
+.faq-topics{margin-block-end:18px}
+.faq-topics .cat{padding-inline-start:12px}
+.faq-body{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:clamp(20px,3vw,40px); align-items:start}
+.faq-list{border-block-start:1px solid var(--line)}
+.faq-list .acc{scroll-margin-top:90px}
+.faq-list .acc summary{padding:16px 2px; gap:14px; align-items:flex-start}
+.faq-list .acc summary .q{display:flex; flex-direction:column; gap:4px; min-width:0}
+.faq-list .acc summary .q .t{font-size:12px; font-family:var(--font-label); font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--text-4)}
+.faq-list .acc[open] summary .q .t{color:var(--accent)}
+.faq-list .acc summary .acc-ico{margin-block-start:2px}
+.faq-list .acc-body{max-width:none; padding-block-end:20px}
+.faq-list .acc-body p + p{margin-block-start:8px}
+.faq-list .acc-body a{font-weight:500}
+.faq-list mark{background:color-mix(in oklab,var(--blue-500) 28%,transparent); color:inherit; border-radius:0; padding:0 1px}
+.faq-empty{padding:32px 20px; text-align:center; color:var(--text-3); font-size:14.5px; border:1px dashed var(--line-strong); border-radius:0; background:var(--surface); margin-block-start:14px}
+.faq-empty b{display:block; color:var(--text); font-weight:600; margin-block-end:4px; font-size:16px}
+.faq-empty .btn{margin-block-start:14px}
+.faq-side{display:flex; flex-direction:column; gap:14px; position:sticky; top:84px}
+.faq-ask{display:flex; flex-direction:column; gap:8px; padding:20px; align-self:flex-start; border:1px solid color-mix(in oklab,var(--blue-500) 45%,var(--line)); border-radius:0; background:color-mix(in oklab,var(--blue-500) 9%,var(--surface))}
+.faq-ask h3{font-size:19px} .faq-ask p{font-size:14px; color:var(--text-3); text-wrap:pretty; margin-block-end:6px}
+.faq-ask .btn{width:100%}
+.faq-popular{display:flex; flex-direction:column; gap:12px; padding:18px 20px; border:1px solid var(--line); border-radius:0; background:var(--tint-2)}
+.faq-popular .link-list a{font-size:14px; cursor:pointer}
+.faq-popular .link-list a{align-items:flex-start} .faq-popular .link-list a::before{content:"→"; color:var(--accent); line-height:1.6}
+.faq-main{min-width:0}
+.faq-foot{margin-block-start:14px}
+@media (prefers-reduced-motion:no-preference){
+  .faq-list.swap .acc{animation:tilein .3s var(--ease) both}
+  .faq-list.swap .acc:nth-child(2){animation-delay:.03s} .faq-list.swap .acc:nth-child(3){animation-delay:.06s} .faq-list.swap .acc:nth-child(4){animation-delay:.09s} .faq-list.swap .acc:nth-child(5){animation-delay:.12s}
+  .acc.flash summary{animation:accflash 1.2s var(--ease)}
+  @keyframes accflash{0%{background:color-mix(in oklab,var(--blue-500) 18%,transparent)} 100%{background:transparent}}
+}
+@media (max-width:1000px){
+  .faq-body{grid-template-columns:1fr}
+  .faq-side{position:static; flex-direction:row; flex-wrap:wrap; align-items:flex-start}
+  .faq-side > *{flex:1 1 280px}
+}
+@media (max-width:760px){
+  .sec-row .search{max-width:none; flex:1 1 100%}
+  .faq-list .acc summary{padding:14px 0; font-size:15.5px}
+  .faq-list .acc-body{font-size:14.5px}
+  .faq-side{flex-direction:column; align-items:stretch}
+  .faq-side > *{flex:none; width:100%}
+  .faq-ask,.faq-popular{padding:16px}
+  .faq-foot{justify-content:center; text-align:center}
+}

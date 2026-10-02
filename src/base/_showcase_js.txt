@@ -1,0 +1,55 @@
+  /* — витрина сервисов: категории + поиск, плитки ведут на страницы сервисов — */
+  var cats = $('cats'), tiles = $('tiles'), more = $('tilesMore'), q = $('svcSearch');
+  var activeCat = 'all', query = '', shown = 0, PAGE = 20;
+  var CATS = [{ id:'all', name:'Все', icon:CATALOG.allIcon, count:CATALOG.services.length }].concat(CATALOG.categories);
+  CATS.forEach(function(c, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'cat'; b.setAttribute('role','tab');
+    b.id = 'cat-' + c.id; b.setAttribute('aria-selected', i === 0 ? 'true':'false'); b.tabIndex = i === 0 ? 0 : -1;
+    b.innerHTML = '<img alt="" src="' + c.icon + '"><span>' + c.name + '</span><span class="n">' + c.count + '</span>';
+    b.addEventListener('click', function(){ selectCat(i, true); });
+    b.addEventListener('keydown', function(e){
+      var n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? CATS.length - 1 : null;
+      if (n === null) return; e.preventDefault();
+      n = (n + CATS.length) % CATS.length; selectCat(n, true); cats.children[n].focus();
+    });
+    cats.appendChild(b);
+  });
+  function selectCat(i, user){
+    activeCat = CATS[i].id;
+    [].forEach.call(cats.children, function(b, k){ b.setAttribute('aria-selected', k === i ? 'true':'false'); b.tabIndex = k === i ? 0 : -1; });
+    if (user) cats.children[i].scrollIntoView({block:'nearest', inline:'nearest', behavior: reduce ? 'auto' : 'smooth'});
+    shown = 0; renderTiles(true);
+  }
+  function matches(s){
+    return (activeCat === 'all' || s.c === activeCat) && (!query || s.n.toLowerCase().indexOf(query) !== -1);
+  }
+  function renderTiles(swap){
+    var list = CATALOG.services.filter(matches);
+    var next = Math.min(list.length, shown + PAGE);
+    tiles.innerHTML = '';
+    if (swap) { tiles.classList.remove('swap'); void tiles.offsetWidth; tiles.classList.add('swap'); }
+    if (!list.length) {
+      var e = document.createElement('div'); e.className = 'tiles-empty';
+      e.innerHTML = '<b>Ничего не найдено по «' + query.replace(/</g,'&lt;') + '»</b>Проверьте написание или <button type="button" id="resetSearch">сбросьте поиск</button>';
+      tiles.appendChild(e);
+      e.querySelector('#resetSearch').addEventListener('click', function(){ q.value = ''; query = ''; shown = 0; renderTiles(true); q.focus(); });
+    }
+    list.slice(0, next).forEach(function(s){
+      var t = document.createElement('a');
+      t.className = 'tile tile-link'; t.href = s.h; t.setAttribute('role','listitem');
+      t.innerHTML = '<img alt="" class="' + (s.d ? 'on-dark' : '') + '" src="' + s.l + '"><span class="t"><b>' + s.n + '</b><span class="cat-name">' + CATALOG.catName[s.c] + '</span></span>';
+      tiles.appendChild(t);
+    });
+    shown = next;
+    $('tilesCount').textContent = list.length ? (query ? 'Найдено ' + list.length : 'Показано ' + shown + ' из ' + list.length) : '';
+    more.hidden = shown >= list.length;
+    more.textContent = 'Показать ещё ' + Math.min(PAGE, list.length - shown);
+  }
+  more.addEventListener('click', function(){ renderTiles(false); });
+  var qt = null;
+  q.addEventListener('input', function(){
+    clearTimeout(qt);
+    qt = setTimeout(function(){ query = q.value.trim().toLowerCase(); shown = 0; renderTiles(true); }, 120);
+  });
+  selectCat(0, false);

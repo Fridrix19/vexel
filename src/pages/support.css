@@ -1,0 +1,78 @@
+/* ——— поддержка ——— */
+.sec-row{display:flex; flex-direction:row; justify-content:space-between; align-items:flex-end; gap:12px 32px; flex-wrap:wrap; max-width:none}
+.sec-row > div{display:flex; flex-direction:column; gap:10px; min-width:0}
+.sec-row-note{font-size:14px; color:var(--text-4); margin-block-end:4px}
+
+/* — ситуации — */
+.sup-issues{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-block-end:18px}
+.sup-issue{font:inherit; text-align:start; cursor:pointer; display:flex; align-items:center; gap:12px; padding:12px 14px; min-height:64px; background:var(--surface); border:1px solid var(--line); border-radius:0; color:var(--text-2); position:relative}
+.sup-issue .m-ico{flex:none; width:40px; height:40px; border-radius:0; display:grid; place-items:center; background:var(--panel-solid); border:1px solid var(--line); color:var(--text-3)}
+.sup-issue .m-ico svg{width:20px; height:20px}
+.sup-issue b{display:block; font-weight:500; color:var(--text); font-size:14.5px; line-height:1.3}
+.sup-issue span.s{display:block; font-size:12.5px; color:var(--text-4); margin-block-start:2px}
+.sup-issue:hover{border-color:var(--ink-600); background:var(--surface-2)}
+.sup-issue[aria-selected="true"]{border-color:var(--blue-500); background:color-mix(in oklab,var(--blue-500) 12%,var(--surface)); box-shadow:0 0 0 1px var(--blue-500) inset, 0 12px 30px -14px var(--glow)}
+.sup-issue[aria-selected="true"] .m-ico{color:#fff; background:linear-gradient(180deg,var(--accent-solid),var(--accent-solid-2)); border-color:transparent}
+
+/* — ответ: слева что проверить, справа обращение — */
+.sup-answer{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; align-items:start}
+.sup-steps,.sup-msg{display:flex; flex-direction:column; gap:14px; padding:20px 22px; border:1px solid var(--line); border-radius:0; background:var(--surface); min-width:0}
+.sup-steps-head{display:flex; flex-direction:column; gap:6px}
+.sup-steps-head h3{font-size:19px}
+.sup-list{margin:0; padding:0; list-style:none; counter-reset:sup; display:flex; flex-direction:column; gap:8px}
+.sup-list li{display:flex; gap:12px; align-items:flex-start; min-width:0; padding:10px 12px; border-radius:0; background:var(--panel-solid); border:1px solid var(--line); font-size:14px; color:var(--text-2); line-height:1.45}
+.sup-list li::before{counter-increment:sup; content:counter(sup); flex:none; width:22px; height:22px; border-radius:50%; display:grid; place-items:center; font-family:var(--font-mono); font-size:11.5px; color:var(--accent); background:color-mix(in oklab,var(--blue-500) 14%,transparent); border:1px solid color-mix(in oklab,var(--blue-500) 40%,var(--line))}
+.sup-list li b{color:var(--text); font-weight:500}
+.sup-msg-head{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.sup-msg .field{max-width:none}
+.sup-msg textarea{font-size:14.5px; min-height:132px}
+.sup-send{display:flex; gap:8px; flex-wrap:wrap}
+.sup-send .btn{min-height:44px; padding:0 16px; font-size:14.5px}
+.sup-send .btn svg{width:18px; height:18px}
+.sup-lbl{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.sup-copy{font:inherit; font-size:13px; font-weight:500; color:var(--accent); background:none; border:0; cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:2px 4px; border-radius:0}
+.sup-copy svg{width:15px; height:15px}
+.sup-copy:hover{color:var(--accent-hover)}
+.sup-copy.is-done{color:var(--status-ok)}
+.sup-send .btn:first-child{flex:1 1 auto}
+@media (prefers-reduced-motion:no-preference){
+  .sup-issue{transition:background-color .15s ease,border-color .15s ease,box-shadow .2s ease,translate .2s var(--ease),scale .12s ease}
+  .sup-issue:hover{translate:0 -2px} .sup-issue:active{scale:.97}
+  .sup-answer.bump .sup-steps{animation:bump .45s var(--ease)}
+  .sup-answer.bump .sup-msg textarea{animation:flash .6s var(--ease)}
+  @keyframes flash{0%{border-color:var(--blue-500); box-shadow:0 0 0 3px color-mix(in oklab,var(--blue-500) 30%,transparent)} 100%{border-color:var(--line-strong); box-shadow:none}}
+}
+
+/* — каналы — */
+.sup-channels{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sup-ch{gap:12px; padding:22px}
+.sup-ch-ico{width:46px; height:46px; border-radius:0; display:grid; place-items:center; color:var(--text); background:var(--panel-solid); border:1px solid var(--line-strong)}
+.sup-ch-ico svg{width:22px; height:22px}
+.sup-ch-t{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.sup-ch p{font-size:14px; color:var(--text-3); text-wrap:pretty; flex:1 1 auto}
+.sup-ch .arrow-link{margin-block-start:auto}
+.sup-ch .btn{width:100%}
+.sup-ch:first-child{border-color:color-mix(in oklab,var(--blue-500) 45%,var(--line)); background:color-mix(in oklab,var(--blue-500) 8%,var(--surface))}
+.sup-ch:first-child .sup-ch-ico{color:#fff; background:linear-gradient(180deg,var(--accent-solid),var(--accent-solid-2)); border-color:transparent; box-shadow:0 10px 22px -10px var(--glow)}
+.sup-foot{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; margin-block-start:14px}
+.sup-prep,.sup-links{display:flex; flex-direction:column; gap:12px; padding:18px 20px; border:1px solid var(--line); border-radius:0; background:var(--tint-2)}
+.sup-links .link-list a::before{content:"→"; color:var(--accent)}
+
+/* — адаптив — */
+@media (max-width:1000px){
+  .sup-issues{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sup-answer{grid-template-columns:1fr}
+  .sup-channels{grid-template-columns:1fr}
+  .sup-ch{flex-direction:row; flex-wrap:wrap; align-items:center; gap:6px 14px; padding:16px}
+  .sup-ch-ico{flex:none} .sup-ch p{flex-basis:100%; order:3} .sup-ch .arrow-link{flex-basis:100%; order:4; margin:0}
+}
+@media (max-width:760px){
+  .sup-issues{grid-template-columns:1fr 1fr; gap:8px; margin-block-end:14px}
+  .sup-issue{min-height:56px; padding:10px 10px; gap:10px; align-items:center}
+  .sup-issue .m-ico{width:34px; height:34px; border-radius:0} .sup-issue .m-ico svg{width:18px; height:18px}
+  .sup-issue b{font-size:13.5px} .sup-issue span.s{display:none}
+  .sup-steps-head h3{font-size:17px}
+  .sup-steps,.sup-msg{padding:16px 14px}
+  .sup-send .btn{flex:1 1 calc(50% - 4px)} .sup-send .btn:first-child{flex-basis:100%}
+  .sup-foot{grid-template-columns:1fr}
+}

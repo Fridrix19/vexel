@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="chip" x1="18" y1="18" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DD3FC"/>
+      <stop offset="1" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="20" y1="18" x2="43" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="17" width="40" height="30" rx="8" fill="url(#shine)" stroke="#F8FBFF" stroke-opacity="0.92" stroke-width="3"/>
+  <path d="M14 28h36" stroke="#F8FBFF" stroke-opacity="0.88" stroke-width="3" stroke-linecap="round"/>
+  <rect x="19" y="33" width="11" height="7" rx="3.5" fill="url(#chip)"/>
+  <path d="M43.5 20.5 45 24l3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5 1.5-3.5Z" fill="#9EE7FF"/>
+</svg>

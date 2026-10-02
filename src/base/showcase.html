@@ -1,0 +1,18 @@
+      <div class="showcase" aria-labelledby="showcaseTitle">
+        <div class="showcase-head">
+          <div>
+            <h3 id="showcaseTitle">{{SHOWCASE_TITLE}}</h3>
+            <p>{{SHOWCASE_TEXT}}</p>
+          </div>
+          <div class="search">
+            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2 17 17"/></svg>
+            <input id="svcSearch" type="search" placeholder="Название сервиса" aria-label="Поиск по сервисам" autocomplete="off">
+          </div>
+        </div>
+        <div class="cats" role="tablist" aria-label="Категории" id="cats"></div>
+        <div class="tiles" id="tiles" role="list"></div>
+        <div class="tiles-foot">
+          <span id="tilesCount" role="status"></span>
+          <button type="button" class="btn btn-ghost btn-sm" id="tilesMore" hidden>Показать ещё</button>
+        </div>
+      </div>

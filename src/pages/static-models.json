@@ -1,0 +1,514 @@
+{
+ "virtual-card": {
+  "type": "virtual-card",
+  "label": "Виртуальная карта",
+  "fixed": [
+   50,
+   75,
+   100,
+   150,
+   200
+  ],
+  "min": 50,
+  "max": 200
+ },
+ "chatgpt": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Plus",
+    "usd": 20,
+    "priceText": "$20/month"
+   },
+   {
+    "label": "Business",
+    "usd": 30,
+    "priceText": "$30/user/month"
+   },
+   {
+    "label": "Pro",
+    "usd": 200,
+    "priceText": "$200/month"
+   }
+  ]
+ },
+ "claude": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Pro",
+    "usd": 20,
+    "priceText": "$20/month"
+   }
+  ]
+ },
+ "gemini": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Google AI Pro",
+    "usd": 20,
+    "priceText": "$20/month"
+   }
+  ]
+ },
+ "grok": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "SuperGrok 1 месяц",
+    "usd": 40,
+    "priceText": "$40/month"
+   }
+  ]
+ },
+ "openai": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "API credits 20$",
+    "usd": 20,
+    "priceText": "$20"
+   },
+   {
+    "label": "API credits 50$",
+    "usd": 50,
+    "priceText": "$50"
+   },
+   {
+    "label": "API credits 100$",
+    "usd": 100,
+    "priceText": "$100"
+   }
+  ]
+ },
+ "perplexity": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Pro",
+    "usd": 20,
+    "priceText": "$20/month"
+   }
+  ]
+ },
+ "midjourney": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Basic",
+    "usd": 10,
+    "priceText": "$10/month"
+   },
+   {
+    "label": "Standard",
+    "usd": 30,
+    "priceText": "$30/month"
+   }
+  ]
+ },
+ "adobe": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Creative Cloud",
+    "usd": 20,
+    "priceText": "from $20/month"
+   }
+  ]
+ },
+ "adobe-stock": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "10 credits",
+    "usd": 15,
+    "priceText": "$15"
+   }
+  ]
+ },
+ "canva": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Canva Pro",
+    "usd": 15,
+    "priceText": "$15/month"
+   },
+   {
+    "label": "Canva Business",
+    "usd": 20,
+    "priceText": "$20/user/month"
+   }
+  ]
+ },
+ "netflix": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Standard",
+    "usd": 16,
+    "priceText": "$16/month"
+   },
+   {
+    "label": "Premium",
+    "usd": 23,
+    "priceText": "$23/month"
+   }
+  ]
+ },
+ "spotify": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Individual",
+    "usd": 12,
+    "priceText": "$12/month"
+   },
+   {
+    "label": "Duo",
+    "usd": 17,
+    "priceText": "$17/month"
+   },
+   {
+    "label": "Family",
+    "usd": 20,
+    "priceText": "$20/month"
+   }
+  ]
+ },
+ "deezer": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Premium",
+    "usd": 12,
+    "priceText": "$12/month"
+   }
+  ]
+ },
+ "qobuz": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Studio",
+    "usd": 13,
+    "priceText": "$13/month"
+   }
+  ]
+ },
+ "discord-nitro": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Nitro",
+    "usd": 10,
+    "priceText": "$10/month"
+   }
+  ]
+ },
+ "twitch": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Tier 1",
+    "usd": 6,
+    "priceText": "$6"
+   },
+   {
+    "label": "Tier 2",
+    "usd": 10,
+    "priceText": "$10"
+   },
+   {
+    "label": "Tier 3",
+    "usd": 25,
+    "priceText": "$25"
+   }
+  ]
+ },
+ "app-store": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Номинал 20$",
+    "usd": 20,
+    "priceText": "$20"
+   },
+   {
+    "label": "Номинал 50$",
+    "usd": 50,
+    "priceText": "$50"
+   },
+   {
+    "label": "Номинал 100$",
+    "usd": 100,
+    "priceText": "$100"
+   }
+  ]
+ },
+ "steam": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Номинал 20$",
+    "usd": 20,
+    "priceText": "$20"
+   },
+   {
+    "label": "Номинал 50$",
+    "usd": 50,
+    "priceText": "$50"
+   },
+   {
+    "label": "Номинал 100$",
+    "usd": 100,
+    "priceText": "$100"
+   }
+  ]
+ },
+ "playstation": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Номинал 20$",
+    "usd": 20,
+    "priceText": "$20"
+   },
+   {
+    "label": "Номинал 50$",
+    "usd": 50,
+    "priceText": "$50"
+   },
+   {
+    "label": "Номинал 100$",
+    "usd": 100,
+    "priceText": "$100"
+   }
+  ]
+ },
+ "playstation-plus": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Essential",
+    "usd": 10,
+    "priceText": "$10/month"
+   },
+   {
+    "label": "Extra",
+    "usd": 15,
+    "priceText": "$15/month"
+   },
+   {
+    "label": "Deluxe",
+    "usd": 18,
+    "priceText": "$18/month"
+   }
+  ]
+ },
+ "game-pass": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "PC Game Pass",
+    "usd": 12,
+    "priceText": "$12/month"
+   },
+   {
+    "label": "Ultimate",
+    "usd": 20,
+    "priceText": "$20/month"
+   }
+  ]
+ },
+ "microsoft-365": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Personal",
+    "usd": 10,
+    "priceText": "$10/month"
+   },
+   {
+    "label": "Family",
+    "usd": 13,
+    "priceText": "$13/month"
+   }
+  ]
+ },
+ "notion": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Plus",
+    "usd": 12,
+    "priceText": "$12/member/month"
+   }
+  ]
+ },
+ "zoom": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Pro",
+    "usd": 16,
+    "priceText": "$16/user/month"
+   }
+  ]
+ },
+ "jetbrains": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "All Products Pack",
+    "usd": 17,
+    "priceText": "from $17/month"
+   }
+  ]
+ },
+ "amazon": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Покупка 50$",
+    "usd": 50,
+    "priceText": "$50"
+   },
+   {
+    "label": "Покупка 100$",
+    "usd": 100,
+    "priceText": "$100"
+   }
+  ]
+ },
+ "ebay": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Покупка 50$",
+    "usd": 50,
+    "priceText": "$50"
+   },
+   {
+    "label": "Покупка 100$",
+    "usd": 100,
+    "priceText": "$100"
+   }
+  ]
+ },
+ "etsy": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Покупка 50$",
+    "usd": 50,
+    "priceText": "$50"
+   },
+   {
+    "label": "Покупка 100$",
+    "usd": 100,
+    "priceText": "$100"
+   }
+  ]
+ },
+ "tradingview": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Essential",
+    "usd": 16,
+    "priceText": "$16/month"
+   },
+   {
+    "label": "Plus",
+    "usd": 33,
+    "priceText": "$33/month"
+   }
+  ]
+ },
+ "replit": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Core",
+    "usd": 20,
+    "priceText": "$20/month"
+   }
+  ]
+ },
+ "sentry": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Team",
+    "usd": 26,
+    "priceText": "$26/month"
+   }
+  ]
+ },
+ "qodo": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Pro",
+    "usd": 19,
+    "priceText": "$19/month"
+   }
+  ]
+ },
+ "lovable": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Pro",
+    "usd": 20,
+    "priceText": "$20/month"
+   }
+  ]
+ },
+ "flutterflow": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Standard",
+    "usd": 30,
+    "priceText": "$30/month"
+   }
+  ]
+ },
+ "freepik": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Premium",
+    "usd": 12,
+    "priceText": "$12/month"
+   }
+  ]
+ },
+ "envato": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Elements",
+    "usd": 17,
+    "priceText": "$17/month"
+   }
+  ]
+ },
+ "getty-images": {
+  "type": "plans",
+  "plans": [
+   {
+    "label": "Кредиты 50$",
+    "usd": 50,
+    "priceText": "$50"
+   }
+  ]
+ },
+ "behance": {
+  "type": "free",
+  "label": "Бесплатно"
+ }
+}

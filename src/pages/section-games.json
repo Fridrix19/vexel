@@ -1,0 +1,70 @@
+{
+ "subcats": [
+  [
+   "platform",
+   "Платформы и магазины"
+  ],
+  [
+   "console",
+   "Консоли"
+  ],
+  [
+   "ingame",
+   "Внутриигровые покупки"
+  ]
+ ],
+ "items": {
+  "Steam": [
+   "platform",
+   "Игры и пополнение кошелька."
+  ],
+  "Epic Games": [
+   "platform",
+   "Магазин игр и Fortnite."
+  ],
+  "GOG.com": [
+   "platform",
+   "Игры без DRM."
+  ],
+  "EA App": [
+   "platform",
+   "Игры Electronic Arts и EA Play."
+  ],
+  "Ubisoft Connect": [
+   "platform",
+   "Игры Ubisoft и Ubisoft+."
+  ],
+  "Rockstar Games": [
+   "platform",
+   "GTA, RDR и внутриигровая валюта."
+  ],
+  "Riot Games": [
+   "platform",
+   "Valorant, LoL и внутриигровая валюта."
+  ],
+  "PlayStation": [
+   "console",
+   "Пополнение PSN и покупки в PS Store."
+  ],
+  "PlayStation Plus": [
+   "console",
+   "Подписка на игры и онлайн."
+  ],
+  "Nintendo eShop": [
+   "console",
+   "Игры для Switch."
+  ],
+  "Xbox": [
+   "console",
+   "Пополнение и игры Xbox."
+  ],
+  "Game Pass": [
+   "console",
+   "Подписка на библиотеку игр."
+  ],
+  "Roblox": [
+   "ingame",
+   "Robux и премиум-подписка."
+  ]
+ }
+}

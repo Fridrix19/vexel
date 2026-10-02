@@ -1,0 +1,85 @@
+<main>
+  <section class="wrap hx hx-svc">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{BASE}}catalog.html">catalog</a><span class="sep">/</span>
+      <a href="{{BASE}}section/{{CAT_ID}}/index.html"><img alt="" src="{{CAT_ICON}}">{{CAT_NAME}}</a><span class="sep">/</span>
+      <span aria-current="page">{{SVC_NAME}}</span>
+    </nav>
+    <div class="vt-win infow">
+      <div class="vt-bar"><span>$ vexel info</span><span aria-hidden="true">[_][□][×]</span></div>
+      <div class="info-body">
+        <span class="hsv-logo {{LOGO_CLASS}}"><img alt="" src="{{SVC_ICON}}"></span>
+        <div class="hsv-copy">
+          <h1>{{SVC_NAME}}</h1>
+          <p>{{SVC_LEAD}}</p>
+          <div class="facts">
+            <div class="fact"><b>{{FACT1_B}}</b><span>{{FACT1_S}}</span></div>
+            <div class="fact"><b>15 мин</b><span>выпуск карты после оплаты</span></div>
+            <div class="fact"><b>{{FACT3_B}}</b><span>{{FACT3_S}}</span></div>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#order">Выбрать план</a>
+            <a class="btn btn-ghost" href="#reviews" data-rv-tab>Отзывы <span data-rv-count>0</span></a>
+            <button type="button" class="btn btn-ghost fav-btn" data-fav aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>В избранное</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap stack">
+    <section class="panel panel-order reveal" id="order">
+      <div class="section-head">
+        <span class="eyebrow">Расчёт и оформление</span>
+        <h2>{{ORDER_TITLE}}</h2>
+        <p>{{ORDER_LEAD}}</p>
+      </div>
+
+      <div class="config">
+        <div class="steps">
+          <div class="step">
+            <div class="step-head"><span class="step-num">01</span><h3>{{STEP1_TITLE}}</h3></div>
+            <p class="step-hint">{{STEP1_HINT}}</p>
+            <div class="plan-groups" id="planGroups"></div>
+            <div class="plan-details" id="planDetails" aria-live="polite"></div>
+          </div>
+
+          <div class="step">
+            <div class="step-head"><span class="step-num">02</span><h3>Куда прислать реквизиты</h3></div>
+            <div class="field">
+              <label for="email">Электронная почта</label>
+              <input id="email" type="email" name="email" autocomplete="email" inputmode="email" placeholder="mail@example.ru" aria-describedby="emailHint">
+              <p class="hint" id="emailHint">Отправим номер карты, срок, CVC и инструкцию по привязке к {{SVC_SHORT}}.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="calc" aria-labelledby="calcTitle">
+          <h3 id="calcTitle">Расчёт</h3>
+          <p class="calc-sub" id="calcSub">{{SVC_NAME}} · выпуск до 15 минут</p>
+          <dl class="calc-rows">
+            <div class="calc-row"><dt>Способ оплаты</dt><dd>СБП</dd></div>
+            <div class="calc-row"><dt>{{ROW_PLAN_LABEL}}</dt><dd id="rowPlan" data-pb-label>$20 / мес</dd></div>
+            <div class="calc-row"><dt>Комиссия</dt><dd id="rowComm">802 ₽</dd></div>
+          </dl>
+          <dl class="calc-total"><dt>Итого</dt><dd id="rowTotal">2 407 ₽</dd></dl>
+          <button type="button" class="btn btn-primary" id="pay">Оплатить через СБП</button>
+          <p class="calc-status" id="status" role="status"></p>
+          <p class="calc-note">Нажимая «Оплатить», вы принимаете <a data-doc="offer" href="{{BASE}}legal-files/offer.pdf" target="_blank" rel="noopener">оферту</a>, <a data-doc="privacy" href="{{BASE}}legal-files/privacy.pdf" target="_blank" rel="noopener">политику конфиденциальности</a> и <a data-doc="tariffs" href="{{BASE}}tariffs.html" target="_blank" rel="noopener">тарифы</a>. Сумма в рублях — по курсу ЦБ на момент оплаты (в прототипе 80,2254 ₽).</p>
+        </aside>
+      </div>
+
+{{SHOWCASE}}
+    </section>
+
+    <section class="panel reveal rv" id="reviews">
+      <div class="section-head sec-row">
+        <div><span class="eyebrow">Отзывы</span><h2>Отзывы покупателей <span class="rv-count" data-rv-count>0</span></h2></div>
+        <div class="rv-sum" data-rv-sum hidden></div>
+      </div>
+      <div class="rv-list" data-rv-list><p class="rv-empty">0 отзывов — станьте первым после покупки.</p></div>
+      <div class="rv-foot"><button type="button" class="btn btn-ghost" data-rv-more hidden>Показать ещё</button><span class="hint">Отзыв можно оставить после покупки — в карточке заказа в личном кабинете.</span></div>
+    </section>
+
+{{AFTER}}  </div>
+</main>

@@ -1,0 +1,47 @@
+<footer class="site-foot">
+  <div class="wrap">
+    <pre class="foot-ascii" aria-label="Vexel">██╗   ██╗███████╗██╗  ██╗███████╗██╗
+██║   ██║██╔════╝╚██╗██╔╝██╔════╝██║
+██║   ██║█████╗   ╚███╔╝ █████╗  ██║
+╚██╗ ██╔╝██╔══╝   ██╔██╗ ██╔══╝  ██║
+ ╚████╔╝ ███████╗██╔╝ ██╗███████╗███████╗
+  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝</pre>
+    <p class="foot-about"><span>&gt;</span> Платим за вас там, где российские карты не принимают: виртуальная долларовая карта и оплата 139 зарубежных сервисов через СБП.</p>
+    <div class="foot-grid">
+      <div class="foot-col"><h4>/сервис</h4><a href="{{BASE}}virtual-card.html">card.exe — виртуальная карта</a><a href="{{BASE}}catalog.html">catalog/ — все сервисы</a><a href="{{BASE}}how-it-works.html">how.txt — как устроено</a><a href="{{BASE}}tariffs.html" data-doc="tariffs">tariffs.txt — тарифы</a></div>
+      <div class="foot-col"><h4>/помощь</h4><a href="{{BASE}}support.html">Решить проблему</a><a href="{{BASE}}faq.html">Вопросы и ответы</a><a href="{{BASE}}contacts.html">Контакты</a><a href="{{BASE}}dashboard.html">Личный кабинет</a></div>
+      <div class="foot-col"><h4>/документы</h4><a href="{{BASE}}legal-files/offer.pdf" data-doc="offer" target="_blank" rel="noopener">offer.pdf — оферта</a><a href="{{BASE}}legal-files/privacy.pdf" data-doc="privacy" target="_blank" rel="noopener">privacy.pdf — политика</a><a href="{{BASE}}tariffs.html" data-doc="tariffs">Тарифы и комиссии</a><a href="{{BASE}}contacts.html#channels">Реквизиты</a></div>
+      <div class="foot-col foot-pay"><h4>/оплата</h4><span class="pay-chip">[СБП]</span><span class="pay-chip">[QR-код]</span><span class="pay-chip">[Баланс]</span></div>
+    </div>
+  </div>
+  <div class="statusbar">
+    <div class="wrap sb-row">
+      <span class="sb-on">● СБП: онлайн</span>
+      <span>Поддержка 9:00–22:00 МСК</span>
+      <span>© 2026 Vexel · бета, данные и курс условные</span>
+      <button type="button" class="theme-btn" data-theme-toggle aria-label="Включить режим печати" aria-pressed="false">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M8 21h8M12 17v4"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4v-8h16v8h-2M6 14h12v7H6z"/></svg>
+        <span class="tb-l">Режим печати</span>
+      </button>
+    </div>
+  </div>
+</footer>
+<!-- мобильное меню: «Пуск» -->
+<div class="sheet-wrap" id="moreSheet" hidden>
+  <div class="sheet-backdrop" data-sheet-close></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-head"><h3 id="sheetTitle">menu.exe</h3><button type="button" class="icon-btn plain" data-sheet-close aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+    <a href="{{BASE}}catalog.html" {{CUR_CATALOG}}><i class="si">F1</i>Сервисы</a>
+    <a href="{{BASE}}virtual-card.html" {{CUR_VC}}><i class="si">F2</i>Виртуальная карта</a>
+    <a href="{{BASE}}how-it-works.html" {{CUR_HOW}}><i class="si">F3</i>Как устроено</a>
+    <a href="{{BASE}}faq.html"><i class="si">F4</i>Вопросы</a>
+    <a href="{{BASE}}support.html" {{CUR_SUPPORT}}><i class="si">F5</i>Помощь</a>
+    <a href="{{BASE}}contacts.html"><i class="si">F6</i>Контакты</a>
+    <a href="{{BASE}}tariffs.html" data-doc="tariffs"><i class="si">F7</i>Тарифы</a>
+    <span class="sheet-sep"></span>
+    <a href="{{BASE}}login.html" class="sheet-login btn btn-dark">Войти в кабинет</a>
+    <label class="toggle sheet-theme"><input type="checkbox" role="switch" id="sheetTheme"><span class="knob"></span><span>Экран CRT</span></label>
+  </div>
+</div>
+</div>

@@ -1,0 +1,64 @@
+<main>
+  <section class="wrap hx hx-ct">
+    <div class="vt-win pingw">
+      <div class="vt-bar"><span>terminal — ping</span><span aria-hidden="true">[_][□][×]</span></div>
+      <div class="ping-body">
+        <span class="eyebrow">contacts</span>
+        <h1>Связаться с нами</h1>
+        <p class="ping-status">статус: <b id="ctStatus">—</b> <span id="ctStatusSub">статус</span></p>
+        <div class="ping-lines">
+          <p class="ping-cmd">$ ping telegram</p>
+          <a href="https://t.me/vexel_support" data-contact="tg" target="_blank" rel="noopener"><span>64 bytes from</span> <b data-contact-text="tg">@vexel_support</b>: <i>time≈15 мин</i> <em>быстрее всего</em></a>
+          <p class="ping-cmd">$ ping max</p>
+          <a href="https://max.ru/vexel_support" data-contact="max" target="_blank" rel="noopener"><span>64 bytes from</span> <b data-contact-text="max">vexel_support</b>: <i>time≈1 ч</i> <em>если удобнее Max</em></a>
+          <p class="ping-cmd">$ ping mail</p>
+          <a href="mailto:support@vexel.ru" data-contact="mail"><span>64 bytes from</span> <b data-contact-text="mail">support@vexel.ru</b>: <i>time≈24 ч</i> <em>документы и возвраты</em></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap stack">
+    <section class="panel reveal" id="channels">
+      <div class="section-head sec-row">
+        <div><span class="eyebrow">Куда лучше написать</span><h2>Выберите тему — подскажем канал</h2></div>
+        <p class="sec-row-note">Подсветим, где ответят быстрее по вашему вопросу.</p>
+      </div>
+      <div class="cats ct-topics" role="tablist" aria-label="Тема обращения" id="ctTopics"></div>
+      <div class="card-grid ct-grid" id="ctGrid">
+        <article class="card ct-ch" data-ch="tg">
+          <div class="ct-head"><span class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l7 2 2 7 9-16z"/><path d="m10 13 11-9"/></svg></span><div><h3>Telegram</h3><span class="ct-sla"><i class="ct-dot"></i>~15 минут</span></div><span class="badge badge-info ct-rec">Лучше сюда</span></div>
+          <p class="ct-desc">Оплата, привязка карты, статус письма, выбор сервиса.</p>
+          <div class="ct-val"><b data-contact-text="tg">@vexel_support</b><button type="button" class="icon-btn" data-contact-copy="tg" data-copy="@vexel_support" aria-label="Скопировать"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
+          <div class="card-foot"><a class="btn btn-primary" href="https://t.me/vexel_support" data-contact="tg" target="_blank" rel="noopener">Открыть чат</a></div>
+        </article>
+        <article class="card ct-ch" data-ch="max">
+          <div class="ct-head"><span class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><div><h3>Max</h3><span class="ct-sla"><i class="ct-dot"></i>до 1 часа</span></div><span class="badge badge-info ct-rec">Лучше сюда</span></div>
+          <p class="ct-desc">Те же вопросы, если Telegram недоступен.</p>
+          <div class="ct-val"><b data-contact-text="max">vexel_support</b><button type="button" class="icon-btn" data-contact-copy="max" data-copy="vexel_support" aria-label="Скопировать"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
+          <div class="card-foot"><a class="btn btn-ghost" href="https://max.ru/vexel_support" data-contact="max" target="_blank" rel="noopener">Открыть Max</a></div>
+        </article>
+        <article class="card ct-ch" data-ch="mail">
+          <div class="ct-head"><span class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span><div><h3>Почта</h3><span class="ct-sla"><i class="ct-dot"></i>до 24 часов</span></div><span class="badge badge-info ct-rec">Лучше сюда</span></div>
+          <p class="ct-desc">Возвраты, документы, закрывающие для юрлиц.</p>
+          <div class="ct-val"><b data-contact-text="mail">support@vexel.ru</b><button type="button" class="icon-btn" data-contact-copy="mail" data-copy="support@vexel.ru" aria-label="Скопировать"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></div>
+          <div class="card-foot"><a class="btn btn-ghost" href="mailto:support@vexel.ru" data-contact="mail">Написать письмо</a></div>
+        </article>
+      </div>
+      <div class="ct-foot">
+        <div class="ct-hours">
+          <span class="eyebrow">Часы работы</span>
+          <ul class="ct-week" id="ctWeek"></ul>
+          <span class="sc-l">Вне часов — пишите, ответим утром. Письма с реквизитами приходят автоматически, круглосуточно.</span>
+        </div>
+        <div class="ct-prep"><span class="eyebrow">Чтобы ответить быстрее</span><ul class="check-marks"><li>Почта из заказа — по ней найдём его сразу</li><li>Сервис и план, если вопрос про подписку</li><li>Скриншот ошибки, если сервис отклонил карту</li></ul></div>
+        <div class="ct-legal">
+          <span class="eyebrow">Реквизиты и документы</span>
+          <dl class="ct-kv"><div><dt>Исполнитель</dt><dd>{{LEGAL_NAME}}</dd></div><div><dt>ИНН</dt><dd>{{LEGAL_INN}}</dd></div><div><dt>ОГРН</dt><dd>{{LEGAL_OGRN}}</dd></div></dl>
+          <ul class="link-list"><li><a data-doc="offer" href="{{BASE}}legal-files/offer.pdf" target="_blank" rel="noopener">Публичная оферта</a></li><li><a data-doc="privacy" href="{{BASE}}legal-files/privacy.pdf" target="_blank" rel="noopener">Политика конфиденциальности</a></li><li><a data-doc="tariffs" href="{{BASE}}tariffs.html" target="_blank" rel="noopener">Тарифы и комиссии</a></li></ul>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="toast-stack" id="toasts" aria-live="polite"></div>
+</main>

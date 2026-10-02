@@ -1,0 +1,12 @@
+// шаг 1 регистрации: почта с разрешённого домена и свободный логин → код на почту (аккаунт ещё не создаётся)
+export default defineEventHandler(async (e) => {
+  const b = await readBody(e)
+  const email = normEmail(b?.email)
+  const username = normUsername(b?.username)
+  await checkEmailDomain(email)
+  if (await one(`select 1 from users where email = $1`, [email]))
+    fail(409, 'email_taken', 'Аккаунт с этой почтой уже есть. Войдите или восстановите пароль.')
+  if (await one(`select 1 from users where username = $1`, [username]))
+    fail(409, 'username_taken', 'Этот логин занят — выберите другой.')
+  return issueCode(e, email, 'register')
+})

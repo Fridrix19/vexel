@@ -1,0 +1,13 @@
+/* ——— каталог: хаб направлений ——— */
+.sec-row{display:flex; flex-direction:row; justify-content:space-between; align-items:flex-end; gap:12px 32px; flex-wrap:wrap; max-width:none; margin-block-end:18px}
+.sec-row > div{display:flex; flex-direction:column; gap:10px; min-width:0}
+.sec-row .search{flex:0 1 360px; width:100%; max-width:360px; margin-block-end:2px}
+.cat-tiles{grid-template-columns:repeat(4,minmax(0,1fr)); margin-block-start:14px}
+@media (max-width:1000px){
+  .cat-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .sec-row .search{max-width:none; flex:1 1 100%}
+  .cat-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .home-cta{padding:20px 16px} .home-cta .hero-cta{width:100%}
+}

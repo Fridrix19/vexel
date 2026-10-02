@@ -1,0 +1,82 @@
+<main>
+  <section class="wrap hx hx-sup">
+    <div class="err-dlg">
+      <div class="vt-bar"><span>Ошибка</span><span aria-hidden="true">[×]</span></div>
+      <div class="err-body">
+        <span class="err-ico" aria-hidden="true">!</span>
+        <div>
+          <h1>Что-то пошло не так? Разберёмся.</h1>
+          <p>Выберите, что случилось — покажем, что проверить, и подготовим текст обращения. Отвечаем с 9 до 22 по Москве, в Telegram — около 15 минут.</p>
+        </div>
+      </div>
+      <ol class="ps-list err-opts">
+        <li><a href="#helper" data-pick="mail"><b>Письмо не пришло</b><span>после оплаты прошло больше 15 минут</span></a></li>
+        <li><a href="#helper" data-pick="decline"><b>Сервис отклонил карту</b><span>ошибка при привязке или оплате</span></a></li>
+        <li><a href="#helper" data-pick="sbp"><b>Не проходит оплата по СБП</b><span>QR не открывается или платёж завис</span></a></li>
+        <li><a href="#helper" data-pick="refund"><b>Вернуть деньги</b><span>карта не нужна или не выпущена</span></a></li>
+      </ol>
+      <div class="hero-cta err-btns"><a class="btn btn-primary" href="https://t.me/vexel_support" data-contact="tg" target="_blank" rel="noopener">Написать в Telegram</a><a class="btn btn-ghost" href="#helper">Повторить</a></div>
+    </div>
+  </section>
+
+  <div class="wrap stack">
+    <!-- помощник -->
+    <section class="panel reveal" id="helper">
+      <div class="section-head sec-row">
+        <div><span class="eyebrow">Что случилось?</span><h2>Выберите ситуацию</h2></div>
+        <p class="sec-row-note">Покажем, что проверить, и подготовим текст обращения.</p>
+      </div>
+      <div class="sup-issues" id="supIssues" role="tablist" aria-label="Ситуации"></div>
+      <div class="sup-answer" id="supAnswer">
+        <div class="sup-steps">
+          <div class="sup-steps-head"><span class="eyebrow" id="supKicker">Проверьте</span><h3 id="supTitle"></h3></div>
+          <ol class="sup-list" id="supList"></ol>
+          <div class="alert alert-info" id="supNote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><div id="supNoteText"></div></div>
+        </div>
+        <div class="sup-msg">
+          <div class="sup-msg-head"><span class="eyebrow">Не помогло — напишите нам</span><span class="badge badge-ok">Онлайн</span></div>
+          <div class="field"><label for="supMail">Почта из заказа</label><input id="supMail" type="email" placeholder="ivan@yandex.ru" autocomplete="email" inputmode="email"><span class="hint">По ней найдём заказ — не нужно искать номер.</span></div>
+          <div class="field"><div class="sup-lbl"><label for="supText">Текст обращения</label><button type="button" class="sup-copy" id="supCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg><span>Скопировать</span></button></div><textarea id="supText" rows="5" spellcheck="false"></textarea><span class="hint">Уже заполнили — допишите детали, если нужно.</span></div>
+          <div class="sup-send">
+            <a class="btn btn-primary" id="supTg" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l7 2 2 7 9-16z"/><path d="m10 13 11-9"/></svg>Telegram</a>
+            <a class="btn btn-ghost" id="supMax" href="#" target="_blank" rel="noopener">Max</a>
+            <a class="btn btn-ghost" id="supMailto" href="#">Почта</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- каналы -->
+    <section class="panel reveal" id="channels">
+      <div class="section-head">
+        <span class="eyebrow">Каналы связи</span>
+        <h2>Куда писать</h2>
+      </div>
+      <div class="card-grid sup-channels">
+        <a class="card card-link sup-ch" href="https://t.me/vexel_support" data-contact="tg" target="_blank" rel="noopener">
+          <span class="sup-ch-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l7 2 2 7 9-16z"/><path d="m10 13 11-9"/></svg></span>
+          <div class="sup-ch-t"><h3>Telegram</h3><span class="badge badge-ok">~15 минут</span></div>
+          <p>Основной канал: выбор сервиса, оплата, привязка карты, статус письма.</p>
+          <span class="arrow-link"><span data-contact-text="tg">@vexel_support</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card card-link sup-ch" href="https://max.ru/vexel_support" data-contact="max" target="_blank" rel="noopener">
+          <span class="sup-ch-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span>
+          <div class="sup-ch-t"><h3>Max</h3><span class="badge badge-plain">до 1 часа</span></div>
+          <p>Если Telegram недоступен. Те же вопросы, тот же оператор.</p>
+          <span class="arrow-link">Открыть чат<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="card card-link sup-ch" href="mailto:support@vexel.ru" data-contact="mail">
+          <span class="sup-ch-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
+          <div class="sup-ch-t"><h3>Почта</h3><span class="badge badge-plain">до 24 часов</span></div>
+          <p>Возвраты, документы, закрывающие для юрлиц, повторная отправка реквизитов.</p>
+          <span class="arrow-link"><span data-contact-text="mail">support@vexel.ru</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+      <div class="sup-foot">
+        <div class="sup-prep"><span class="eyebrow">Чтобы ответить быстрее</span><ul class="check-marks"><li>Почта из заказа</li><li>Сервис и план</li><li>На каком шаге вопрос: до оплаты, после платежа, при привязке</li></ul></div>
+        <div class="sup-links"><span class="eyebrow">Самосервис</span><ul class="link-list"><li><a href="{{BASE}}faq.html">FAQ — ответы на типовые вопросы</a></li><li><a href="{{BASE}}how-it-works.html">Как это работает — маршрут по шагам</a></li><li><a href="{{BASE}}dashboard.html">Кабинет — баланс и реквизиты</a></li><li><a href="{{BASE}}catalog.html">Каталог — выбрать другой сервис</a></li></ul></div>
+      </div>
+    </section>
+  </div>
+  <div class="toast-stack" id="toasts" aria-live="polite"></div>
+</main>

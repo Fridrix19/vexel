@@ -1,0 +1,20 @@
+/* ——— раздел каталога: изолированная страница категории ——— */
+.cat-inline{width:1.3em; height:1.3em; margin-inline-start:-.1em; filter:drop-shadow(0 0 16px var(--glow))}
+.sec-head{display:flex; flex-direction:row; justify-content:space-between; align-items:flex-end; gap:16px 32px; flex-wrap:wrap; max-width:none; margin-block-end:18px}
+.sec-head > div:first-child{display:flex; flex-direction:column; gap:10px; min-width:0}
+.sec-head .search{flex:0 1 360px; width:100%; max-width:360px; margin-block-end:2px}
+.sec-grid{grid-template-columns:repeat(3,minmax(0,1fr)); margin-block-start:16px}
+.sec-grid .svc-card p{min-height:2.6em}
+.cat-sub{padding-inline-start:12px}
+#secFoot{margin-block-start:16px}
+@media (prefers-reduced-motion:no-preference){
+  .sec-grid.swap .card{animation:tilein .35s var(--ease) both}
+  .sec-grid.swap .card:nth-child(2){animation-delay:.03s} .sec-grid.swap .card:nth-child(3){animation-delay:.06s} .sec-grid.swap .card:nth-child(4){animation-delay:.09s} .sec-grid.swap .card:nth-child(5){animation-delay:.12s} .sec-grid.swap .card:nth-child(6){animation-delay:.15s}
+}
+@media (max-width:1000px){.sec-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){
+  .sec-head .search{max-width:none; flex:1 1 100%}
+  .sec-grid{grid-template-columns:1fr; gap:10px}
+  .sec-grid .svc-card{padding:16px} .sec-grid .svc-card p{min-height:0}
+  #secFoot{justify-content:center} #secFoot .btn{flex:1 1 100%}
+}

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="work-screen" x1="14" y1="15" x2="50" y2="47" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60A5FA"/>
+      <stop offset="0.55" stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="work-glow" x1="20" y1="24" x2="44" y2="42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0F2FE" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#C4B5FD" stop-opacity="0.92"/>
+    </linearGradient>
+  </defs>
+  <rect x="12.5" y="15" width="39" height="27" rx="7.8" fill="url(#work-screen)" fill-opacity="0.18" stroke="#F8FBFF" stroke-width="2.8"/>
+  <path d="M18.8 23.5h26.4" stroke="#D8F1FF" stroke-opacity="0.58" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M32 42.3v5.2" stroke="#F8FBFF" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M24.4 49.2h15.2" stroke="#F8FBFF" stroke-width="2.8" stroke-linecap="round"/>
+  <rect x="20.2" y="27.2" width="10.4" height="7.6" rx="2.3" fill="#34D399" fill-opacity="0.96"/>
+  <path d="M35.2 29.4h8.6" stroke="url(#work-glow)" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M35.2 34h6.1" stroke="#93C5FD" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="m24.2 30.8 1.7 1.7 3.5-3.8" stroke="#0B1227" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

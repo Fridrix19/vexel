@@ -1,0 +1,56 @@
+<main>
+  <section class="wrap hx hx-cat">
+    <div class="nc">
+      <div class="vt-bar"><span>C:\VEXEL\CATALOG — Commander</span><span aria-hidden="true">[_][□][×]</span></div>
+      <div class="nc-panes">
+        <div class="nc-pane">
+          <p class="nc-h">Разделы</p>
+          <div class="nc-list" id="catChips"></div>
+        </div>
+        <div class="nc-pane nc-main">
+          <p class="nc-h">Каталог</p>
+          <h1 class="nc-title"><span>{{SVC_TOTAL}}</span> сервисов, которые можно оплатить</h1>
+          <form class="vt-prompt nc-search" id="catHeroSearch" role="search">
+            <label for="catHeroQ"><b>C:\CATALOG</b>&gt; find</label>
+            <input type="search" id="catHeroQ" placeholder="notion" autocomplete="off" spellcheck="false">
+            <button type="submit" class="btn btn-primary btn-sm">Enter</button>
+          </form>
+          <p class="nc-note"># нет в списке? карта работает в любом сервисе с оплатой в долларах</p>
+        </div>
+      </div>
+      <div class="nc-keys" aria-hidden="true"><span><b>1</b>Помощь</span><span><b>3</b>Смотреть</span><span><b>5</b>Копия</span><span><b>7</b>Поиск</span><span><b>10</b>Выход</span></div>
+    </div>
+  </section>
+
+  <div class="wrap stack">
+    <section class="reveal" id="dirs">
+      <div class="section-row">
+        <div class="section-head"><span class="eyebrow">Направления</span><h2>Выберите раздел</h2><p>Или сразу выпустите карту — она работает в любом сервисе с оплатой в USD.</p></div>
+      </div>
+      <div class="dirs" id="catDirs"></div>
+    </section>
+
+    <section class="panel reveal" id="all">
+      <div class="section-head sec-row">
+        <div><span class="eyebrow">Все сервисы</span><h2>Найдите свой</h2></div>
+        <div class="search">
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2 17 17"/></svg>
+          <input id="svcSearch" type="search" placeholder="Название сервиса" aria-label="Поиск по сервисам" autocomplete="off">
+        </div>
+      </div>
+      <div class="cats" role="tablist" aria-label="Категории" id="cats"></div>
+      <div class="tiles cat-tiles" id="tiles" role="list"></div>
+      <div class="tiles-foot">
+        <span id="tilesCount" role="status"></span>
+        <button type="button" class="btn btn-ghost btn-sm" id="tilesMore" hidden>Показать ещё</button>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="home-cta">
+        <div><h2>Нет нужного сервиса?</h2><p>Карта работает везде, где принимают оплату в USD. Сомневаетесь — спросите до оплаты.</p></div>
+        <div class="hero-cta"><a class="btn btn-primary" href="virtual-card.html">Выпустить карту</a><a class="btn btn-ghost" href="support.html">Спросить в поддержке</a></div>
+      </div>
+    </section>
+  </div>
+</main>

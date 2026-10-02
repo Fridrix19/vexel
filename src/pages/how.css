@@ -1,0 +1,256 @@
+/* ——— как это работает ——— */
+.sec-row{display:flex; flex-direction:row; justify-content:space-between; align-items:flex-end; gap:12px 32px; flex-wrap:wrap; max-width:none}
+.sec-row > div{display:flex; flex-direction:column; gap:10px; min-width:0}
+.sec-row-note{font-size:14px; color:var(--text-4); margin-block-end:4px}
+
+/* — интерактивные шаги — */
+.hiw-flow{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(20px,3vw,40px); align-items:start}
+.hiw-steps{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.hiw-step{position:relative; border:1px solid var(--line); border-radius:0; background:var(--tint-2); overflow:hidden}
+.hiw-step button{font:inherit; width:100%; text-align:start; cursor:pointer; background:none; border:0; color:inherit; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:14px; align-items:center; padding:14px 16px}
+.hiw-step button:focus-visible{outline-offset:-3px}
+.hs-num{font-family:var(--font-label); font-size:12px; font-weight:600; letter-spacing:.1em; color:var(--text-4); font-variant-numeric:tabular-nums; width:26px}
+.hs-t{display:flex; flex-direction:column; gap:3px; min-width:0}
+.hs-t b{font-family:var(--font-display); font-weight:600; font-size:16.5px; color:var(--text); letter-spacing:-.01em}
+.hs-t > span{font-size:14px; color:var(--text-3); text-wrap:pretty; display:none}
+.hs-ico{width:40px; height:40px; border-radius:0; display:grid; place-items:center; color:var(--text-3); background:var(--surface); border:1px solid var(--line)}
+.hs-ico svg{width:20px; height:20px}
+.hs-bar{position:absolute; left:0; right:0; bottom:0; height:2px; background:transparent}
+.hs-bar i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--blue-500),var(--cyan-300))}
+.hiw-step:hover{border-color:var(--ink-600); background:var(--tint)}
+.hiw-step.is-active{border-color:color-mix(in oklab,var(--blue-500) 55%,var(--line)); background:color-mix(in oklab,var(--blue-500) 9%,var(--surface)); box-shadow:0 12px 30px -18px var(--glow)}
+.hiw-step.is-active .hs-num{color:var(--accent)}
+.hiw-step.is-active .hs-t > span{display:block}
+.hiw-step.is-active .hs-ico{color:#fff; background:linear-gradient(180deg,var(--accent-solid),var(--accent-solid-2)); border-color:transparent; box-shadow:0 10px 22px -10px var(--glow)}
+.hiw-step.is-active.is-timed .hs-bar i{animation:hsbar var(--dur,7s) linear both}
+@keyframes hsbar{from{width:0} to{width:100%}}
+
+/* экран */
+.hiw-screen{position:relative; border:1px solid var(--line-strong); border-radius:0; background:var(--panel-solid); box-shadow:0 1px 0 var(--edge) inset, 0 40px 80px -40px var(--shadow-deep); overflow:hidden}
+.scr-top{display:flex; align-items:center; gap:6px; padding:12px 14px; border-block-end:1px solid var(--line); background:var(--tint-2)}
+.scr-top i{width:9px; height:9px; border-radius:50%; background:var(--line-strong)}
+.scr-top span{margin-inline:auto; font-family:var(--font-mono); font-size:12px; color:var(--text-4); padding:3px 12px; border-radius:0; background:var(--surface); translate:-12px 0}
+.scr-body{position:relative; min-height:460px}
+.scene{position:absolute; inset:0; padding:24px; display:flex; flex-direction:column; gap:16px; opacity:0; visibility:hidden; translate:0 10px}
+.scene.is-active{opacity:1; visibility:visible; translate:0 0}
+.sc-l{font-size:12.5px; color:var(--text-4)}
+.type{white-space:pre}
+.caret{display:inline-block; width:1.5px; height:1.1em; background:var(--accent); margin-inline-start:1px; vertical-align:-2px}
+@media (prefers-reduced-motion:no-preference){
+  .scene{transition:opacity .35s var(--ease), translate .35s var(--ease), visibility 0s .35s}
+  .scene.is-active{transition:opacity .4s var(--ease) .1s, translate .4s var(--ease) .1s, visibility 0s}
+  .caret{animation:caret 1s steps(2) infinite}
+  @keyframes caret{50%{opacity:0}}
+  .scene.is-active .sc-anim{animation:scin .45s var(--ease) both var(--sd,0s)}
+  @keyframes scin{from{opacity:0; translate:0 8px} to{opacity:1; translate:0 0}}
+}
+
+/* сцена 1: выбор */
+.sc-search{display:flex; align-items:center; gap:10px; min-height:44px; padding:0 14px; border:1px solid var(--blue-500); border-radius:0; background:var(--surface); color:var(--text); font-size:15px; box-shadow:0 0 0 3px color-mix(in oklab,var(--blue-500) 30%,transparent)}
+.sc-search svg{width:18px; height:18px; color:var(--text-4)}
+.sc-search .caret{margin-inline-start:-8px}
+.sc-tiles{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px}
+.sc-tile{display:flex; align-items:center; gap:10px; min-width:0; padding:9px 12px 9px 9px; min-height:56px; background:var(--surface); border:1px solid var(--line); border-radius:0; color:var(--text-2); position:relative}
+.sc-tile img{width:36px; height:36px; flex:none; border-radius:0; background:#fff; padding:6px; object-fit:contain; box-shadow:0 0 0 1px rgba(14,20,32,.10)}
+.sc-tile img.on-dark{background:var(--ink-800); box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.sc-tile .t{display:flex; flex-direction:column; min-width:0}
+.sc-tile .t b{font-weight:500; color:var(--text); font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sc-tile .t span{font-family:var(--font-mono); font-size:12px; color:var(--text-4)}
+.sc-tile.pick::after{content:""; position:absolute; top:8px; right:8px; width:16px; height:16px; border-radius:50%; background:var(--blue-500) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M4 8.3l2.6 2.6L12 5.6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/12px no-repeat; opacity:0}
+.sc-plans{display:flex; gap:8px; flex-wrap:wrap}
+.sc-plan{font-size:13px; padding:8px 12px; border:1px solid var(--line); border-radius:0; background:var(--surface); color:var(--text-3); font-family:var(--font-mono)}
+@media (prefers-reduced-motion:no-preference){
+  .scene.is-active .sc-tile.pick{animation:scin .45s var(--ease) both var(--sd,0s), tilepick .4s var(--ease) both 1.5s}
+  .scene.is-active .sc-tile.pick::after{animation:fadein .3s var(--ease) both 1.6s}
+  .scene.is-active .sc-plan.pick{animation:scin .45s var(--ease) both var(--sd,0s), planpick .4s var(--ease) both 2.2s}
+  @keyframes tilepick{to{border-color:var(--blue-500); background:color-mix(in oklab,var(--blue-500) 12%,var(--surface)); box-shadow:0 0 0 1px var(--blue-500) inset, 0 12px 30px -14px var(--glow)}}
+  @keyframes planpick{to{border-color:var(--blue-500); background:color-mix(in oklab,var(--blue-500) 12%,var(--surface)); color:var(--text)}}
+  @keyframes fadein{from{opacity:0; scale:.6} to{opacity:1; scale:1}}
+}
+@media (prefers-reduced-motion:reduce){
+  .sc-tile.pick{border-color:var(--blue-500); background:color-mix(in oklab,var(--blue-500) 12%,var(--surface))} .sc-tile.pick::after{opacity:1}
+  .sc-plan.pick{border-color:var(--blue-500); color:var(--text)}
+}
+
+/* сцена 1: итог выбора */
+.sc-next{margin-block-start:auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 12px 12px 16px; border:1px solid var(--line-strong); border-radius:0; background:var(--panel-solid); opacity:0}
+.sc-next > div{display:flex; flex-direction:column; gap:1px; min-width:0} .sc-next b{font-weight:500; color:var(--text); font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sc-next .btn{pointer-events:none; flex:none}
+@media (prefers-reduced-motion:no-preference){ .scene.is-active .sc-next{animation:scin .45s var(--ease) both 2.7s} }
+@media (prefers-reduced-motion:reduce){ .sc-next{opacity:1} }
+
+/* сцена 2: почта и расчёт */
+.sc-field{display:flex; flex-direction:column; gap:7px}
+.sc-field label{font-size:13.5px; color:var(--text-3)}
+.sc-input{display:flex; align-items:center; min-height:48px; padding:0 14px; border:1px solid var(--blue-500); border-radius:0; background:var(--surface); color:var(--text); font-size:16px; box-shadow:0 0 0 3px color-mix(in oklab,var(--blue-500) 30%,transparent)}
+.sc-ok{margin-inline-start:auto; width:22px; height:22px; border-radius:50%; display:grid; place-items:center; color:#fff; background:var(--status-ok); opacity:0; scale:.6}
+.sc-ok svg{width:13px; height:13px}
+.sc-input.is-done .sc-ok{opacity:1; scale:1}
+.sc-hint{font-size:12.5px; color:var(--text-4)}
+.sc-sum{margin:0; display:flex; flex-direction:column; border-block-start:1px solid var(--line)}
+.sc-sum > div{display:flex; justify-content:space-between; gap:16px; padding-block:10px; border-block-end:1px solid var(--line); font-size:14px}
+.sc-sum dt{color:var(--text-3)} .sc-sum dd{margin:0; font-family:var(--font-mono); color:var(--text-2); font-variant-numeric:tabular-nums}
+.sc-sum > div.total{border:0; padding-block:14px 0} .sc-sum .total dd{font-size:24px; color:var(--text); font-weight:500; letter-spacing:-.02em}
+.sc-btn{width:100%; pointer-events:none}
+@media (prefers-reduced-motion:no-preference){
+  .sc-ok{transition:opacity .3s var(--ease), scale .3s var(--ease)}
+  .scene.is-active .sc-btn{animation:scin .45s var(--ease) both var(--sd,0s), btnpress .5s var(--ease) both 3.2s}
+  @keyframes btnpress{0%,100%{scale:1} 40%{scale:.97; filter:brightness(1.15)}}
+}
+
+/* сцена 3: СБП */
+.sc-qr{display:grid; grid-template-columns:auto minmax(0,1fr); gap:20px; padding:18px; background:var(--surface); border:1px solid var(--line); border-radius:0; align-items:start}
+.sc-qr .qr-box{width:176px; overflow:hidden}
+.sc-qr .qr-box svg{width:100%; height:100%; fill:#0F1653}
+.sc-scan{position:absolute; left:0; right:0; top:0; height:26px; background:linear-gradient(180deg,transparent,rgba(61,126,252,.35),transparent); opacity:0; pointer-events:none}
+.sc-done{position:absolute; inset:0; display:grid; place-items:center; color:#fff; background:color-mix(in oklab,var(--status-ok) 82%,#000); opacity:0; scale:.9; border-radius:inherit}
+.sc-done svg{width:56px; height:56px}
+.sc-qr .qr-meta{display:flex; flex-direction:column; gap:6px; min-width:0; padding-block-start:4px}
+.sc-qr .qr-sum{font-family:var(--font-mono); font-size:30px; font-weight:500; color:var(--text); font-variant-numeric:tabular-nums; letter-spacing:-.02em; line-height:1.1}
+.sc-qr .qr-timer{font-size:13.5px; color:var(--text-3)} .sc-qr .qr-timer b{font-family:var(--font-mono); font-weight:500; color:var(--text)}
+.sc-paid{align-self:flex-start; opacity:0; scale:.85; font-size:13px; min-height:30px; padding:4px 12px}
+.sc-l2{margin-block-start:auto; padding-block-start:8px}
+.scene3.is-paid .sc-paid{opacity:1; scale:1}
+@media (prefers-reduced-motion:no-preference){
+  .scene.is-active .sc-scan{animation:scan 1.1s var(--ease) 2 .4s}
+  @keyframes scan{0%{opacity:0; translate:0 0} 15%{opacity:1} 85%{opacity:1} 100%{opacity:0; translate:0 152px}}
+  .scene.is-active .sc-done{animation:qrdone .45s var(--ease) both 2.9s}
+  @keyframes qrdone{to{opacity:1; scale:1}}
+  .scene.is-active .sc-paid{animation:paid .4s var(--ease) both 3s}
+  @keyframes paid{to{opacity:1; scale:1}}
+  .scene.is-active .sc-wait{animation:waitout .3s var(--ease) both 3s}
+  @keyframes waitout{to{opacity:0; height:0; margin:0; overflow:hidden}}
+}
+@media (prefers-reduced-motion:reduce){ .sc-paid{opacity:1; scale:1} .sc-wait{display:none} }
+
+/* сцена 3: шаги в банке */
+.sc-stepper{margin-block-start:auto; padding:14px 6px 8px; border:1px solid var(--line); border-radius:0; background:var(--tint-2)}
+.sc-stepper .st{font-size:12.5px}
+.sc-stepper.all-done li{color:var(--text-3)}
+@media (prefers-reduced-motion:no-preference){ .scene.is-active .sc-stepper{animation:scin .45s var(--ease) both .5s} }
+
+/* сцена 4: письмо */
+.sc-push{align-self:center; display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--text-2); padding:8px 14px; border-radius:0; background:var(--surface-2); border:1px solid var(--line-strong); box-shadow:0 10px 30px -14px var(--shadow)}
+.sc-push svg{width:16px; height:16px; color:var(--accent)}
+.sc-letter{display:flex; flex-direction:column; gap:14px; padding:16px; border:1px solid var(--line); border-radius:0; background:var(--surface)}
+.sc-from{display:flex; align-items:center; gap:12px}
+.sc-from > div{display:flex; flex-direction:column; min-width:0} .sc-from b{color:var(--text); font-weight:600; font-size:15px} .sc-from > div span{font-size:13px; color:var(--text-4); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sc-from time{margin-inline-start:auto; font-size:12px; color:var(--text-4); white-space:nowrap}
+.sc-cred{display:grid; grid-template-columns:minmax(0,2fr) 1fr 1fr; gap:8px}
+.sc-cred > div{display:flex; flex-direction:column; gap:2px; padding:10px 12px; border-radius:0; background:var(--panel-solid); border:1px solid var(--line)}
+.sc-cred span{font-size:11.5px; color:var(--text-4); font-family:var(--font-label); letter-spacing:.06em; text-transform:uppercase}
+.sc-cred b{font-family:var(--font-mono); font-weight:500; color:var(--text); font-size:14px; font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sc-links{display:flex; flex-direction:column; gap:8px; align-items:flex-start}
+.sc-links .btn{pointer-events:none}
+@media (prefers-reduced-motion:no-preference){
+  .scene.is-active .sc-push{animation:pushin .5s var(--ease) both .1s}
+  @keyframes pushin{from{opacity:0; translate:0 -14px} to{opacity:1; translate:0 0}}
+  .scene.is-active .sc-letter{animation:scin .5s var(--ease) both .7s}
+  .scene.is-active .sc-minicard{animation:cardin .6s var(--ease) both 1s}
+  @keyframes cardin{from{opacity:0; translate:0 -10px; rotate:x 20deg} to{opacity:1; translate:0 0; rotate:x 0deg}}
+  .scene.is-active .sc-cred > div{animation:scin .4s var(--ease) both} .scene.is-active .sc-cred > div:nth-child(1){animation-delay:1.1s} .scene.is-active .sc-cred > div:nth-child(2){animation-delay:1.25s} .scene.is-active .sc-cred > div:nth-child(3){animation-delay:1.4s}
+  .scene.is-active .sc-links{animation:scin .4s var(--ease) both 1.5s}
+}
+
+.sc-letter .sc-minicard{width:min(100%,280px)}
+.sc-minicard .ltc-num{font-size:14px}
+.ltc-logo{position:absolute; right:12px; bottom:10px; width:22px; height:21px; object-fit:contain; filter:brightness(0) invert(1); opacity:.95}
+.lt-card{position:relative}
+.sc-cred > div{opacity:0}
+@media (prefers-reduced-motion:reduce){ .sc-cred > div{opacity:1} }
+
+/* — два платежа — */
+.money{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr); gap:10px; align-items:stretch; margin-block-end:14px}
+.mn{display:flex; flex-direction:column; align-items:center; text-align:center; gap:4px; padding:22px 18px 20px; border:1px solid var(--line); border-radius:0; background:var(--surface)}
+.mn-ico{width:56px; height:56px; border-radius:0; display:grid; place-items:center; color:var(--text); background:var(--panel-solid); border:1px solid var(--line-strong); margin-block-end:8px}
+.mn-ico svg{width:26px; height:26px} .mn-ico img{width:30px; height:28px; object-fit:contain}
+.mn b{font-family:var(--font-display); font-weight:600; color:var(--text); font-size:17px}
+.mn > span:last-child{font-size:13.5px; color:var(--text-3)}
+.mn-hi{border-color:color-mix(in oklab,var(--blue-500) 50%,var(--line)); background:color-mix(in oklab,var(--blue-500) 9%,var(--surface)); box-shadow:0 20px 50px -30px var(--glow)}
+.mn-hi .mn-ico{border-color:color-mix(in oklab,var(--blue-500) 45%,var(--line)); box-shadow:0 0 30px -6px var(--glow)}
+.mn-link{position:relative; width:clamp(64px,8vw,120px); display:grid; place-items:center; align-self:center; height:80px}
+.mn-link::before{content:""; position:absolute; left:0; right:0; top:50%; height:2px; background:linear-gradient(90deg,var(--line-strong),color-mix(in oklab,var(--blue-500) 60%,var(--line-strong)),var(--line-strong))}
+.mn-link::after{content:""; position:absolute; right:-1px; top:50%; width:8px; height:8px; border-right:2px solid var(--blue-400); border-top:2px solid var(--blue-400); translate:0 -50%; rotate:45deg}
+.mn-link i{position:absolute; top:50%; left:0; width:6px; height:6px; border-radius:50%; background:var(--blue-300); box-shadow:0 0 10px 2px var(--glow); translate:0 -50%; opacity:0}
+.mn-tag{position:relative; font-family:var(--font-mono); font-size:11.5px; color:var(--text-3); background:var(--panel-solid); border:1px solid var(--line); border-radius:0; padding:3px 9px; white-space:nowrap; translate:0 -22px}
+@media (prefers-reduced-motion:no-preference){
+  .mn-link i{animation:mnflow 2.1s linear infinite} .mn-link i:nth-child(2){animation-delay:.7s} .mn-link i:nth-child(3){animation-delay:1.4s}
+  @keyframes mnflow{0%{left:0; opacity:0} 12%{opacity:1} 88%{opacity:1} 100%{left:calc(100% - 6px); opacity:0}}
+}
+
+/* — письмо с подсветкой — */
+.letter-grid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(20px,3vw,40px); align-items:start}
+.letter{display:flex; flex-direction:column; gap:10px; padding:18px; border:1px solid var(--line-strong); border-radius:0; background:var(--panel-solid); box-shadow:0 1px 0 var(--edge) inset, 0 30px 60px -40px var(--shadow-deep)}
+.lt-head{display:flex; align-items:center; gap:12px; padding-block-end:12px; border-block-end:1px solid var(--line)}
+.lt-head > div{display:flex; flex-direction:column; min-width:0} .lt-head b{color:var(--text); font-weight:600; font-size:15px} .lt-head span{font-size:12.5px; color:var(--text-4)}
+.lt-part{position:relative; display:flex; flex-direction:column; gap:10px; padding:14px; border:1px solid var(--line); border-radius:0; background:var(--surface)}
+.lt-part.is-hi{border-color:var(--blue-500); box-shadow:0 0 0 3px color-mix(in oklab,var(--blue-500) 25%,transparent), 0 16px 40px -20px var(--glow)}
+.lp-mark{position:absolute; top:-9px; right:12px; width:22px; height:22px; border-radius:50%; display:grid; place-items:center; font-family:var(--font-mono); font-size:11.5px; color:#fff; background:var(--ink-600); border:2px solid var(--panel-solid)}
+.lt-part.is-hi .lp-mark{background:var(--accent-solid); box-shadow:0 0 14px var(--glow)}
+.lt-card{position:relative; aspect-ratio:85.6/54; width:min(100%,300px); border-radius:0; padding:14px 16px; color:#EEF2FF; font-family:var(--font-mono); background:radial-gradient(120% 90% at 10% 0%,#7B8CFF 0%,#4A5CE8 38%,#1F2A8A 72%,#0F1653 100%); box-shadow:0 0 0 1px rgba(255,255,255,.10) inset, 0 20px 40px -20px rgba(2,10,40,.9); display:flex; flex-direction:column; justify-content:space-between}
+.ltc-brand{font-family:var(--font-display); font-weight:600; font-size:13px}
+.ltc-type{position:absolute; top:14px; right:16px; font-size:9px; letter-spacing:.22em; color:rgba(238,242,255,.7)}
+.ltc-chip{position:absolute; top:34%; left:16px; width:13%; aspect-ratio:1.3; border-radius:14%; background:linear-gradient(135deg,#F4E7C1,#C9A85B 55%,#E9D39E); box-shadow:0 1px 0 rgba(255,255,255,.35) inset, 0 2px 6px rgba(0,0,0,.35)}
+.ltc-chip::before,.ltc-chip::after{content:""; position:absolute; background:rgba(60,45,10,.35)}
+.ltc-chip::before{left:0; right:0; top:48%; height:1.5px} .ltc-chip::after{top:0; bottom:0; left:48%; width:1.5px}
+.lt-card .ltc-num{margin-block-start:auto; margin-block-end:10px}
+.ltc-num{font-size:15px; letter-spacing:.12em; font-variant-numeric:tabular-nums}
+.ltc-meta{display:flex; gap:16px; font-size:10.5px; letter-spacing:.12em; color:rgba(238,242,255,.75)}
+.lt-kv{display:flex; gap:8px; flex-wrap:wrap}
+.lt-kv span{font-size:12.5px; color:var(--text-4); padding:5px 10px; border-radius:0; border:1px solid var(--line); background:var(--panel-solid)}
+.lt-kv b{font-family:var(--font-mono); font-weight:500; color:var(--text); font-variant-numeric:tabular-nums}
+.lt-h{color:var(--text); font-weight:600; font-size:14.5px}
+.lt-steps{margin:0; padding-inline-start:18px; font-size:13.5px; color:var(--text-2); display:flex; flex-direction:column; gap:4px}
+.lt-foot{flex-direction:row; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.lt-foot .btn{pointer-events:none}
+.lt-sup{font-size:12.5px; color:var(--text-4)}
+.letter-side{margin-block-start:14px}
+.letter-notes{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.letter-notes li{display:flex; gap:14px; align-items:flex-start; padding:14px 16px; border:1px solid var(--line); border-radius:0; background:var(--tint-2); cursor:default}
+.letter-notes li:hover,.letter-notes li.is-hi{border-color:color-mix(in oklab,var(--blue-500) 55%,var(--line)); background:color-mix(in oklab,var(--blue-500) 9%,var(--surface))}
+.ln-num{flex:none; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-family:var(--font-mono); font-size:12.5px; color:var(--text-2); background:var(--surface); border:1px solid var(--line-strong)}
+.letter-notes li.is-hi .ln-num{color:#fff; background:var(--accent-solid); border-color:transparent}
+.letter-notes b{display:block; font-family:var(--font-display); font-weight:600; color:var(--text); font-size:15.5px; margin-block-end:3px}
+.letter-notes p{font-size:14px; color:var(--text-3); text-wrap:pretty}
+@media (prefers-reduced-motion:no-preference){
+  .lt-part,.lp-mark,.letter-notes li,.ln-num{transition:border-color .2s ease, box-shadow .25s ease, background-color .2s ease, color .2s ease}
+}
+
+/* — адаптив — */
+@media (max-width:1000px){
+  .hiw-flow,.letter-grid{grid-template-columns:1fr}
+  .hiw-screen{order:-1}
+  .money{grid-template-columns:1fr; gap:6px}
+  .mn-link{width:100%; height:56px}
+  .mn-link::before{left:50%; right:auto; top:0; bottom:0; width:2px; height:auto; translate:-50% 0; background:linear-gradient(180deg,var(--line-strong),color-mix(in oklab,var(--blue-500) 60%,var(--line-strong)),var(--line-strong))}
+  .mn-link::after{right:auto; left:50%; top:auto; bottom:-1px; translate:-50% 0; rotate:135deg}
+  .mn-link i{left:50%!important; translate:-50% 0; top:0}
+  .mn-tag{translate:0 0}
+  @media (prefers-reduced-motion:no-preference){ @keyframes mnflow{0%{top:0; opacity:0} 12%{opacity:1} 88%{opacity:1} 100%{top:calc(100% - 6px); opacity:0}} }
+}
+@media (max-width:760px){
+  .hiw-step button{padding:12px 14px; gap:12px}
+  .hs-t b{font-size:15.5px} .hs-t > span{font-size:13.5px}
+  .hs-ico{width:36px; height:36px} .hs-ico svg{width:18px; height:18px}
+  .scr-body{min-height:440px}
+  .scene{padding:16px; gap:14px}
+  .sc-tiles{grid-template-columns:1fr 1fr}
+  .sc-next b{white-space:normal; font-size:14px}
+  .sc-tile .t span{display:none}
+  .sc-qr{grid-template-columns:1fr; gap:14px; padding:14px} .sc-qr .qr-box{width:150px}
+  .sc-scan{display:none}
+  .sc-cred{grid-template-columns:1fr 1fr} .sc-cred > div:first-child{grid-column:1/-1}
+  .mn{padding:14px; display:grid; grid-template-columns:auto minmax(0,1fr); text-align:start; gap:1px 14px; align-items:center}
+  .mn-ico{margin:0; width:46px; height:46px; border-radius:0; grid-row:span 2} .mn-ico svg{width:22px; height:22px} .mn-ico img{width:24px; height:22px}
+  .mn b{font-size:16px}
+  .letter{padding:14px} .lt-part{padding:12px}
+  .letter-notes li{padding:12px 14px}
+  .home-cta{padding:20px 16px} .home-cta .hero-cta{width:100%}
+}
+/* Vexel */
+.lt-card{background:#12100C!important; color:#F5E9D0; position:relative; overflow:hidden; border:3px solid #FFB000}
+.lt-card::after{content:""; position:absolute; right:8%; top:10%; width:18%; height:10%; background:#FF5E7E}
+.ltc-type{color:#FFB000!important}
+.sc-qr .qr-box svg{fill:#12100C}
+.sc-scan{background:linear-gradient(180deg,transparent,rgba(255,176,0,.5),transparent)!important}
+.hiw-step button{border-radius:0}

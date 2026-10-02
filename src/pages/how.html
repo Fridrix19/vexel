@@ -1,0 +1,159 @@
+<main>
+  <section class="wrap hx hx-how">
+    <div class="vt-win wiz">
+      <div class="vt-bar"><span>Мастер установки подписки</span><span aria-hidden="true">[_][□][×]</span></div>
+      <div class="wiz-body">
+        <ol class="wiz-list">
+          <li class="done"><b>Сервис</b><span>каталог или номинал</span><time>00:00</time></li>
+          <li class="done"><b>Почта</b><span>куда прислать карту</span><time>00:30</time></li>
+          <li class="cur"><b>СБП</b><span>QR в приложении банка</span><time>01:00</time></li>
+          <li><b>Письмо</b><span>реквизиты и инструкция</span><time>≤ 15 мин</time></li>
+        </ol>
+        <div class="wiz-main">
+          <h1>Как устроен Vexel</h1>
+          <p>Четыре шага и до 15 минут — от выбора сервиса до готовой карты в почте. Мастер ниже покажет каждый экран.</p>
+          <div class="wiz-prog" aria-hidden="true"><span>Установка…</span><span class="wiz-bar"><i></i></span><span>75%</span></div>
+          <div class="hero-cta"><a class="btn btn-primary" href="{{BASE}}virtual-card.html">Выпустить карту</a><a class="btn btn-ghost" href="#steps">Далее &gt;</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap stack">
+    <!-- интерактивные шаги -->
+    <section class="panel reveal" id="steps">
+      <div class="section-head sec-row">
+        <div><span class="eyebrow">Маршрут</span><h2>Четыре шага</h2></div>
+        <p class="sec-row-note">Нажмите на шаг — покажем, как он выглядит на сайте.</p>
+      </div>
+      <div class="hiw-flow">
+        <ol class="hiw-steps" id="hiwSteps">
+          <li class="hiw-step">
+            <button type="button" aria-expanded="false" aria-controls="scene1"><span class="hs-num">01</span><span class="hs-t"><b>Выберите сервис</b><span>Из каталога или сразу карту нужного номинала.</span></span><span class="hs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></svg></span></button>
+            <span class="hs-bar" aria-hidden="true"><i></i></span>
+          </li>
+          <li class="hiw-step">
+            <button type="button" aria-expanded="false" aria-controls="scene2"><span class="hs-num">02</span><span class="hs-t"><b>Укажите почту</b><span>На неё придут реквизиты карты и инструкция.</span></span><span class="hs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span></button>
+            <span class="hs-bar" aria-hidden="true"><i></i></span>
+          </li>
+          <li class="hiw-step">
+            <button type="button" aria-expanded="false" aria-controls="scene3"><span class="hs-num">03</span><span class="hs-t"><b>Оплатите через СБП</b><span>QR-код в приложении банка. Итог в рублях виден заранее.</span></span><span class="hs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.4"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.4"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.4"/><path d="M14 14h3v3M20.5 14v6.5H17M14 20.5h1"/></svg></span></button>
+            <span class="hs-bar" aria-hidden="true"><i></i></span>
+          </li>
+          <li class="hiw-step">
+            <button type="button" aria-expanded="false" aria-controls="scene4"><span class="hs-num">04</span><span class="hs-t"><b>Получите письмо</b><span>До 15 минут: реквизиты карты и шаги для вашего сервиса.</span></span><span class="hs-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h3"/></svg></span></button>
+            <span class="hs-bar" aria-hidden="true"><i></i></span>
+          </li>
+        </ol>
+
+        <div class="hiw-screen" id="hiwScreen">
+          <div class="scr-top" aria-hidden="true"><i></i><i></i><i></i><span>vexel.ru</span></div>
+          <div class="scr-body">
+            <!-- 1: выбор сервиса -->
+            <div class="scene" id="scene1" role="img" aria-label="Выбор сервиса в каталоге">
+              <div class="sc-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span class="type" data-text="Cursor"></span><i class="caret"></i></div>
+              <div class="sc-tiles" id="scTiles"></div>
+              <div class="sc-plans"><span class="sc-plan">Hobby · $0</span><span class="sc-plan pick">Pro · $20</span><span class="sc-plan">Business · $40</span></div>
+              <div class="sc-next"><div><span class="sc-l">Выбрано</span><b>Cursor Pro · $20 / мес</b></div><span class="btn btn-primary btn-sm">Продолжить</span></div>
+            </div>
+            <!-- 2: почта -->
+            <div class="scene" id="scene2" role="img" aria-label="Ввод почты и расчёт">
+              <div class="sc-field"><label>Почта для реквизитов</label><div class="sc-input"><span class="type" data-text="ivan@yandex.ru"></span><i class="caret"></i><span class="sc-ok"><svg viewBox="0 0 16 16"><path d="M3.5 8.4l2.8 2.8L12.6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><span class="sc-hint">Сюда придут реквизиты карты и инструкция</span></div>
+              <dl class="sc-sum" id="scSum"></dl>
+              <span class="btn btn-primary sc-btn">Оплатить через СБП</span>
+            </div>
+            <!-- 3: СБП -->
+            <div class="scene" id="scene3" role="img" aria-label="Оплата по QR-коду через СБП">
+              <div class="sc-qr">
+                <div class="qr-box"><svg id="scQr" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg><i class="sc-scan"></i><span class="sc-done"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+                <div class="qr-meta">
+                  <span class="sc-l">К оплате</span><span class="qr-sum" id="scTotal">—</span>
+                  <span class="qr-timer sc-wait">Ждём оплату · <b id="scTimer">09:58</b></span>
+                  <span class="badge badge-ok sc-paid">Оплачено</span>
+                  <span class="sc-l sc-l2">Любой банк с СБП, без комиссии банка</span>
+                </div>
+              </div>
+              <ol class="stepper sc-stepper" id="scStepper"><li class="done"><span class="dot">1</span><span class="st">Открыть банк</span></li><li class="current"><span class="dot">2</span><span class="st">Сканировать QR</span></li><li><span class="dot">3</span><span class="st">Подтвердить</span></li></ol>
+            </div>
+            <!-- 4: письмо -->
+            <div class="scene" id="scene4" role="img" aria-label="Письмо с реквизитами карты">
+              <div class="sc-push"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>Новое письмо · Vexel</div>
+              <div class="sc-letter">
+                <div class="sc-from"><span class="avatar">M</span><div><b>Карта готова</b><span>реквизиты и инструкция для Cursor</span></div><time>сейчас</time></div>
+                <div class="lt-card sc-minicard"><span class="ltc-brand">Vexel</span><span class="ltc-type">VIRTUAL</span><span class="ltc-chip"></span><span class="ltc-num">5375 2213 0981 4021</span><span class="ltc-meta"><span>09/29</span><span>CVC 318</span><span>USD</span></span><img class="ltc-logo" src="{{LOGO}}" alt=""></div>
+                <div class="sc-links"><span class="btn btn-ghost btn-sm">Инструкция для Cursor</span><span class="sc-l">Адрес и индекс для формы оплаты — в письме</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- два платежа -->
+    <section class="panel reveal" id="money">
+      <div class="section-head">
+        <span class="eyebrow">Что важно знать</span>
+        <h2>Сначала карта, потом сервис</h2>
+        <p>Платёж на сайте — за выпуск карты. Подписку вы оплачиваете ею сами, на сайте сервиса.</p>
+      </div>
+      <div class="money" aria-label="Схема: вы платите рублями, получаете карту в долларах, ею оплачиваете сервис">
+        <div class="mn"><span class="mn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg></span><b>Вы</b><span>платите рублями по СБП</span></div>
+        <div class="mn-link"><i></i><i></i><i></i><span class="mn-tag">₽ по курсу ЦБ</span></div>
+        <div class="mn mn-hi"><span class="mn-ico"><img src="{{LOGO}}" alt=""></span><b>Vexel</b><span>выпускает карту в USD</span></div>
+        <div class="mn-link"><i></i><i></i><i></i><span class="mn-tag">$ с карты</span></div>
+        <div class="mn"><span class="mn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span><b>Сервис</b><span>списывает подписку</span></div>
+      </div>
+      <div class="home-why">
+        <article class="card info-card"><span class="eyebrow">До оплаты</span><h3>Итог в рублях виден сразу</h3><p>Курс ЦБ и комиссия — в расчёте, без скрытых списаний.</p></article>
+        <article class="card info-card accent"><span class="eyebrow">Карта</span><h3>Многоразовая</h3><p>Продления списываются с неё. Пополнение — тем же способом, номер прежний.</p></article>
+        <article class="card info-card"><span class="eyebrow">Почта</span><h3>Один адрес — все письма</h3><p>Реквизиты, инструкция, номер заказа и доступ в кабинет.</p></article>
+      </div>
+    </section>
+
+    <!-- письмо -->
+    <section class="panel reveal" id="letter">
+      <div class="section-head sec-row">
+        <div><span class="eyebrow">Что приходит на email</span><h2>Одно письмо — всё нужное</h2></div>
+        <p class="sec-row-note">Выберите пункт — подсветим его в письме.</p>
+      </div>
+      <div class="letter-grid">
+        <div class="letter" id="letterMock" aria-hidden="true">
+          <div class="lt-head"><span class="avatar">M</span><div><b>Vexel · Ваша карта готова</b><span>noreply@vexel.ru · заказ #48213</span></div></div>
+          <div class="lt-part" data-part="1"><span class="lp-mark">1</span>
+            <div class="lt-card"><span class="ltc-brand">Vexel</span><span class="ltc-type">VIRTUAL</span><span class="ltc-chip"></span><span class="ltc-num">5375 2213 0981 4021</span><span class="ltc-meta"><span>09/29</span><span>CVC 318</span><span>USD</span></span></div>
+            <div class="lt-kv"><span>Номер <b>5375 2213 0981 4021</b></span><span>Срок <b>09/29</b></span><span>CVC <b>318</b></span></div>
+          </div>
+          <div class="lt-part" data-part="2"><span class="lp-mark">2</span>
+            <b class="lt-h">Как привязать карту в Cursor</b>
+            <ol class="lt-steps"><li>Settings → Billing → Add payment method</li><li>Введите номер, срок и CVC</li><li>Укажите адрес из блока ниже</li></ol>
+          </div>
+          <div class="lt-part" data-part="3"><span class="lp-mark">3</span>
+            <b class="lt-h">Платёжный адрес</b>
+            <div class="lt-kv"><span>Страна <b>US</b></span><span>Индекс <b>10001</b></span><span>Город <b>New York</b></span></div>
+          </div>
+          <div class="lt-part lt-foot" data-part="4"><span class="lp-mark">4</span>
+            <span class="btn btn-primary btn-sm">Открыть кабинет</span><span class="lt-sup">Поддержка: Telegram · Max · <span data-contact-text="mail">support@vexel.ru</span></span>
+          </div>
+        </div>
+        <ol class="letter-notes" id="letterNotes">
+          <li data-part="1"><span class="ln-num">1</span><div><b>Реквизиты карты</b><p>Номер, срок и CVC. Те же — в кабинете.</p></div></li>
+          <li data-part="2"><span class="ln-num">2</span><div><b>Инструкция для сервиса</b><p>Где ввести карту именно в вашем сервисе, по шагам.</p></div></li>
+          <li data-part="3"><span class="ln-num">3</span><div><b>Платёжный адрес</b><p>Страна, индекс и город для формы оплаты — частая причина отказа, если пропустить.</p></div></li>
+          <li data-part="4"><span class="ln-num">4</span><div><b>Кабинет и поддержка</b><p>Баланс, пополнение и история — в кабинете. Вопросы — в Telegram, Max или на почту.</p></div></li>
+        </ol>
+      </div>
+      <div class="letter-side">
+        <div class="alert alert-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><div><b>До 15 минут после оплаты</b>Не пришло — проверьте «Спам». Копия реквизитов всегда есть в кабинете.</div></div>
+      </div>
+    </section>
+
+    {{AFTER}}
+
+    <section class="reveal">
+      <div class="home-cta">
+        <div><h2>Готовы начать?</h2><p>Карта за 15 минут, оплата через СБП.</p></div>
+        <div class="hero-cta"><a class="btn btn-primary" href="{{BASE}}virtual-card.html">Выпустить карту</a><a class="btn btn-ghost" href="{{BASE}}catalog.html">Каталог</a></div>
+      </div>
+    </section>
+  </div>
+</main>

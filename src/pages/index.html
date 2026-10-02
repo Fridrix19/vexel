@@ -1,0 +1,142 @@
+<main>
+  <section class="wrap hx hx-home">
+    <div class="vt-win vt-term">
+      <div class="vt-bar"><span>vexel — terminal — 80×24</span><span aria-hidden="true">[_][□][×]</span></div>
+      <div class="vt-body">
+        <p class="vt-log"><span class="vt-ok">[ OK ]</span> Загружен каталог: {{SVC_TOTAL}} сервисов</p>
+        <p class="vt-log"><span class="vt-ok">[ OK ]</span> Платёжный шлюз СБП: онлайн</p>
+        <p class="vt-log"><span class="vt-ok">[ OK ]</span> Выпуск карты: до 15 минут</p>
+        <h1 class="vt-title">Платите за <mark>ChatGPT</mark>, <mark>Netflix</mark> и&nbsp;<mark>Steam</mark> рублями<span class="cursor" aria-hidden="true"></span></h1>
+        <p class="vt-lead">Выпустим долларовую виртуальную карту за 15 минут и подскажем, как привязать её к сервису. Оплата по QR через СБП, итог в рублях — до оплаты.</p>
+        <form class="vt-prompt" action="{{BASE}}catalog.html" role="search" id="heroSearch">
+          <label for="heroQ"><b>vexel@pay</b>:~$ найти</label>
+          <input type="search" name="q" id="heroQ" placeholder="figma" autocomplete="off" spellcheck="false">
+          <button type="submit" class="btn btn-primary btn-sm">Enter</button>
+        </form>
+      </div>
+    </div>
+    <aside class="vt-side">
+      <div class="vt-win vt-cardwin">
+        <div class="vt-bar"><span>card.exe</span><span aria-hidden="true">[×]</span></div>
+        <div class="card-stage" id="cardStage" role="img" aria-label="Виртуальная карта Vexel">
+            <div class="card-float">
+              <div class="card-tilt" id="cardTilt">
+                <div class="card-spin">
+                  <div class="face face-front">
+                    <span class="orbit"></span><span class="orbit o2"></span>
+                    <span class="f-brand">vexel</span>
+                    <span class="f-type">USD</span>
+                    <span class="f-chip"></span>
+                    <svg class="f-wave" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M6 8.5a6 6 0 0 1 0 7M9.5 6a10 10 0 0 1 0 12M13 3.5a14 14 0 0 1 0 17"/></svg>
+                    <span class="f-num">4021 •••• •••• 7788</span>
+                    <span class="f-meta"><span>ДО <b>09/29</b></span><span>VIRTUAL</span></span>
+                    <img class="f-logo" src="{{LOGO}}" alt="">
+                  </div>
+                  <div class="face face-back">
+                    <span class="f-stripe"></span>
+                    <span class="f-sign"></span>
+                    <span class="f-cvc">•••</span>
+                    <span class="f-cvc-label">CVC</span>
+                    <span class="f-back-note">Реквизиты — в кабинете и на почте сразу после выпуска.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-shadow" aria-hidden="true"></div>
+        </div>
+        <p class="vt-cap">USD · $50–200 · СБП · <a href="{{BASE}}virtual-card.html">открыть</a></p>
+      </div>
+      <div class="vt-win vt-mon">
+        <div class="vt-bar"><span>sysmon</span><span aria-hidden="true">[×]</span></div>
+        <dl>
+          <div><dt>выпуск карты</dt><dd><i style="--v:25%"></i><b>15 мин</b></dd></div>
+          <div><dt>комиссия пополнения</dt><dd><i style="--v:0%"></i><b>0 ₽</b></dd></div>
+          <div><dt>бонус за KYC</dt><dd><i style="--v:100%"></i><b>+500 ₽</b></dd></div>
+          <div><dt>лимит без KYC</dt><dd><i style="--v:60%"></i><b>15 000 ₽</b></dd></div>
+        </dl>
+      </div>
+    </aside>
+  </section>
+
+  <div class="wrap stack">
+    <!-- популярное: таблица процессов -->
+    <section class="panel reveal home-pop" id="popular">
+      <div class="section-row">
+        <div class="section-head"><span class="eyebrow">top — популярное</span><h2>Чем платят чаще всего</h2></div>
+        <a class="btn btn-ghost btn-sm" href="{{BASE}}catalog.html">ls catalog/ — {{SVC_TOTAL}}</a>
+      </div>
+      <div class="ps-table" role="table" aria-label="Популярные сервисы">
+        <div class="ps-row ps-hd" role="row"><span role="columnheader">PID</span><span role="columnheader">СЕРВИС</span><span role="columnheader">ЧТО ДЕЛАЕТ</span><span role="columnheader">ЦЕНА</span><span role="columnheader"></span></div>
+        <div id="homePopular"></div>
+      </div>
+    </section>
+
+    <!-- как это работает: установка -->
+    <section class="panel reveal hm-install" id="how">
+      <div class="section-row">
+        <div class="section-head"><span class="eyebrow">install.sh — как это работает</span><h2>Три шага — и подписка оплачена</h2></div>
+        <a class="btn btn-ghost btn-sm" href="{{BASE}}how-it-works.html">man how</a>
+      </div>
+      <ol class="inst">
+        <li><span class="inst-bar"><i style="--v:33%"></i></span><b>[1/3] Выберите номинал или сервис</b><span>Карта на $50–200 или конкретный тариф — итог в рублях видно сразу.</span></li>
+        <li><span class="inst-bar"><i style="--v:66%"></i></span><b>[2/3] Оплатите по QR через СБП</b><span>Из приложения любого банка. Курс ЦБ и комиссия — в расчёте до оплаты.</span></li>
+        <li><span class="inst-bar"><i style="--v:100%"></i></span><b>[3/3] Привяжите карту к сервису</b><span>Номер, срок и CVC появятся в кабинете. Инструкция — для каждого сервиса.</span></li>
+      </ol>
+    </section>
+
+    <!-- разделы: папки -->
+    <section class="reveal home-dirs" id="cats">
+      <div class="section-row">
+        <div class="section-head"><span class="eyebrow">~/catalog</span><h2>Разделы</h2><p>Внутри — цены в рублях и пошаговая привязка для каждого сервиса.</p></div>
+        <a class="btn btn-ghost btn-sm" href="{{BASE}}catalog.html">cd catalog</a>
+      </div>
+      <div class="dirs" id="homeCats"></div>
+    </section>
+
+    <!-- readme -->
+    <section class="panel reveal hm-readme">
+      <div class="section-head"><span class="eyebrow">readme.txt</span><h2>Почему Vexel</h2></div>
+      <div class="rd-grid">
+        <article><span class="rd-k">+500 ₽</span><h3>Бонус за верификацию</h3><p>Подтвердите личность — снимем лимит в 15 000 ₽ и подарим скидку на следующую покупку.</p></article>
+        <article><span class="rd-k">= ₽</span><h3>Итог — до оплаты</h3><p>Курс ЦБ, комиссия и сумма в рублях видны в расчёте. Никаких списаний потом.</p></article>
+        <article><span class="rd-k">1 → ∞</span><h3>Одна карта — много сервисов</h3><p>Пополняйте ту же карту, номер не меняется. Баланс и история — в кабинете.</p></article>
+        <article><span class="rd-k">★★★★★</span><h3>Отзывы покупателей</h3><p>Честные оценки после каждой покупки — на страницах сервисов и карты.</p><a href="{{BASE}}virtual-card.html#reviews" class="arrow-link">cat reviews</a></article>
+      </div>
+    </section>
+
+    <!-- вопросы -->
+    <section class="panel reveal home-faq-wrap" id="faq">
+      <div class="faq-aside">
+        <span class="eyebrow">Вопросы</span>
+        <h2>Коротко о главном</h2>
+        <p>Не нашли ответ? Напишите — отвечаем с 9:00 до 22:00 по Москве.</p>
+        <a class="btn btn-ghost btn-sm" href="{{BASE}}faq.html">Все вопросы</a>
+      </div>
+      <div class="acc-list home-faq">
+        <details class="acc" open><summary>Как проходит оплата?<span class="acc-ico" aria-hidden="true"></span></summary><div class="acc-body">Выбираете карту или сервис, указываете почту и платите по QR-коду через СБП. Карта будет готова в течение 15 минут, реквизиты — в кабинете и на почте.</div></details>
+        <details class="acc"><summary>Я оплачиваю сам сервис?<span class="acc-ico" aria-hidden="true"></span></summary><div class="acc-body">Нет — вы покупаете долларовую виртуальную карту. Подписку оплачиваете ею сами, на сайте сервиса.</div></details>
+        <details class="acc"><summary>Есть ли лимиты?<span class="acc-ico" aria-hidden="true"></span></summary><div class="acc-body">Без верификации — до 15 000 ₽ в месяц, отсчёт с первой покупки. После проверки паспорта лимит снимается.</div></details>
+        <details class="acc"><summary>А если сервиса нет в каталоге?<span class="acc-ico" aria-hidden="true"></span></summary><div class="acc-body">Карта работает в любом сервисе с оплатой в долларах, если он не запрещён офертой. Напишите — подскажем.</div></details>
+        <details class="acc"><summary>Письмо с реквизитами не пришло<span class="acc-ico" aria-hidden="true"></span></summary><div class="acc-body">Загляните в «Спам» и в кабинет — реквизиты всегда там. Если и там нет, напишите в поддержку, найдём заказ по почте.</div></details>
+      </div>
+    </section>
+
+    <!-- финал: диалог -->
+    <section class="reveal home-final" id="support">
+      <div class="final-dlg">
+        <div class="vt-bar"><span>setup.exe</span><span aria-hidden="true">[×]</span></div>
+        <div class="final-body">
+          <span class="final-ico" aria-hidden="true">?</span>
+          <div><h2>Карта будет готова раньше, чем вы допьёте кофе</h2><p>Выпуск — до 15 минут. Пополнение — без комиссии с нашей стороны. Продолжить установку?</p></div>
+        </div>
+        <div class="hero-cta final-btns"><a class="btn btn-primary" href="{{BASE}}virtual-card.html">Выпустить карту</a><a class="btn btn-ghost" href="{{BASE}}catalog.html">Выбрать сервис</a></div>
+      </div>
+      <div class="final-help">
+        <p class="fh-t">$ ping support</p>
+        <a href="https://t.me/vexel_support" data-contact="tg" target="_blank" rel="noopener"><b>telegram</b><span data-contact-text="tg">@vexel_support</span><i>~15 мин</i></a>
+        <a href="https://max.ru/vexel_support" data-contact="max" target="_blank" rel="noopener"><b>max</b><span data-contact-text="max">vexel_support</span><i>~1 ч</i></a>
+        <a href="mailto:support@vexel.ru" data-contact="mail"><b>mail</b><span data-contact-text="mail">support@vexel.ru</span><i>~24 ч</i></a>
+      </div>
+    </section>
+  </div>
+</main>

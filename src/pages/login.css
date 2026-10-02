@@ -1,0 +1,110 @@
+/* ——— вход и регистрация ——— */
+.auth{padding-block:clamp(40px,6vw,72px) clamp(120px,16vw,200px); min-height:calc(100vh - 64px); display:flex; align-items:center}
+.auth-grid{width:100%}
+.auth-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,460px); gap:clamp(32px,6vw,80px); align-items:center}
+.auth-copy{max-width:52ch}
+.auth-perks{margin-block-start:4px}
+.auth-perks li{color:var(--text-2)}
+.auth-note{max-width:44ch}
+.sc-l{font-size:12.5px; color:var(--text-4)}
+
+.auth-card{position:relative; background:var(--panel); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid var(--line-strong); border-radius:0; padding:clamp(22px,3vw,32px); box-shadow:0 1px 0 var(--edge) inset, 0 40px 80px -40px var(--shadow-deep); overflow:hidden}
+.auth-card::before{content:""; position:absolute; inset:0 auto auto 0; width:100%; height:1px; background:linear-gradient(90deg,transparent,rgba(105,159,255,.45) 40%,rgba(82,207,243,.35) 60%,transparent)}
+.auth-tabs [role="tab"]{flex:1 1 0; justify-content:center; font-size:15px; padding-block:10px 12px}
+.auth-screen{display:flex; flex-direction:column; gap:16px}
+.auth-screen .field{max-width:none}
+.auth-screen .field .hint:empty{display:none}
+.auth-lbl{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.auth-link{font:inherit; font-size:13.5px; font-weight:500; color:var(--accent); background:none; border:0; padding:0; cursor:pointer; text-decoration:none}
+.auth-link:hover{color:var(--accent-hover); text-decoration:underline; text-underline-offset:3px}
+.auth-link .mono{font-weight:400; color:var(--text-4)}
+.auth-link:disabled{color:var(--text-4); cursor:default; text-decoration:none}
+.auth-submit{width:100%}
+.auth-foot{font-size:14px; color:var(--text-3); text-align:center}
+.auth-foot .auth-link{font-size:14px}
+.auth-back{align-self:flex-start; font:inherit; font-size:13.5px; color:var(--text-3); background:none; border:0; padding:0; cursor:pointer; display:inline-flex; align-items:center; gap:4px; margin-block-end:-4px}
+.auth-back svg{width:16px; height:16px} .auth-back:hover{color:var(--text)}
+.auth-head{display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; padding-block:6px 4px}
+.auth-head h2{font-size:22px}
+.auth-head p{font-size:14.5px; color:var(--text-3); text-wrap:pretty; max-width:36ch}
+.auth-head p b{color:var(--text); font-weight:500; font-family:var(--font-mono)}
+.auth-ico{width:52px; height:52px; border-radius:0; display:grid; place-items:center; color:var(--accent); background:color-mix(in oklab,var(--blue-500) 12%,var(--surface)); border:1px solid color-mix(in oklab,var(--blue-500) 40%,var(--line)); margin-block-end:6px}
+.auth-ico svg{width:24px; height:24px}
+.auth-ico.ok{color:#fff; background:linear-gradient(180deg,var(--status-ok),color-mix(in oklab,var(--status-ok) 70%,#000)); border-color:transparent; box-shadow:0 12px 30px -12px color-mix(in oklab,var(--status-ok) 60%,transparent)}
+.auth-center{text-align:center}
+.auth-screen > .hint{font-size:12.5px; color:var(--text-4)}
+.auth-head p b{white-space:nowrap}
+.auth-demo{opacity:.7}
+.auth-alt{display:flex; flex-direction:column; align-items:center; gap:8px}
+
+/* — сила пароля — */
+.pw-meter{display:grid; grid-template-columns:repeat(4,1fr); gap:4px; height:4px; margin-block-start:2px}
+.pw-meter i{border-radius:0; background:var(--surface-2)}
+.pw-meter[data-score="1"] i:nth-child(-n+1){background:var(--status-err)}
+.pw-meter[data-score="2"] i:nth-child(-n+2){background:var(--status-warn)}
+.pw-meter[data-score="3"] i:nth-child(-n+3){background:var(--blue-400)}
+.pw-meter[data-score="4"] i{background:var(--status-ok)}
+
+/* — код из 6 цифр — */
+.otp{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; max-width:360px; margin-inline:auto; width:100%}
+.otp input{font:inherit; font-family:var(--font-mono); font-size:24px; font-weight:500; text-align:center; color:var(--text); background:var(--surface); border:1px solid var(--line-strong); border-radius:0; height:56px; width:100%; padding:0; caret-color:var(--accent)}
+.otp input:focus-visible{outline:none; border-color:var(--blue-500); box-shadow:0 0 0 3px color-mix(in oklab,var(--blue-500) 30%,transparent)}
+.otp input.is-filled{border-color:color-mix(in oklab,var(--blue-500) 55%,var(--line-strong))}
+.otp.is-err input{border-color:var(--status-err)}
+.otp.is-ok input{border-color:var(--status-ok)}
+@media (prefers-reduced-motion:no-preference){
+  .otp.is-err{animation:shake .4s var(--ease)}
+  @keyframes shake{0%,100%{translate:0 0} 20%{translate:-6px 0} 40%{translate:6px 0} 60%{translate:-4px 0} 80%{translate:4px 0}}
+  .auth-screen{animation:scin .35s var(--ease) both}
+  @keyframes scin{from{opacity:0; translate:0 8px} to{opacity:1; translate:0 0}}
+  .btn.is-loading{pointer-events:none}
+}
+
+/* — готово — */
+.auth-done{align-items:center; text-align:center; gap:10px; padding-block:10px 4px}
+.auth-done h2{font-size:24px}
+.auth-done > p{font-size:14.5px; color:var(--text-3)}
+.auth-session{display:grid; grid-template-columns:auto 1fr; gap:4px 14px; text-align:start; padding:12px 14px; border:1px solid var(--line); border-radius:0; background:var(--surface); width:100%; font-size:13.5px; margin-block:6px 8px}
+.auth-session b{color:var(--text); font-weight:500; font-family:var(--font-mono); font-size:13px}
+.auth-mfa-offer{width:100%; padding:12px 14px; border:1px solid color-mix(in oklab,var(--blue-500) 40%,var(--line)); border-radius:0; background:color-mix(in oklab,var(--blue-500) 8%,var(--surface)); align-items:flex-start; text-align:start; margin-block-start:6px}
+.auth-mfa-offer .knob{margin-block-start:2px}
+.auth-mfa-offer .sub{display:block; font-size:12.5px; color:var(--text-4)}
+
+/* — адаптив — */
+@media (max-width:1000px){
+  .auth-grid{grid-template-columns:1fr; gap:26px}
+  .auth-copy{max-width:none} .auth-perks,.auth-note{display:none}
+  .auth-card{max-width:520px}
+}
+@media (max-width:760px){
+  .auth{padding-block:clamp(160px,42vw,220px) 40px}
+  .auth-copy h1{font-size:clamp(28px,7.6vw,34px)}
+  .auth-card{padding:18px 16px 20px; border-radius:0; max-width:none}
+  .otp{gap:6px} .otp input{height:50px; font-size:21px; border-radius:0}
+  .auth-head p{max-width:none}
+}
+/* ——— Vexel: вход — окно login: по центру экрана, текст слева как журнал загрузки ——— */
+.auth{padding-block:clamp(24px,3.5vw,44px) clamp(40px,6vw,72px); min-height:0}
+.auth-grid{grid-template-columns:minmax(0,1fr) minmax(0,470px); gap:clamp(20px,3vw,36px); align-items:start}
+.auth-copy{max-width:none; padding:clamp(18px,3vw,30px); border:1px dashed var(--line-strong); background:var(--ink-950) url("{{ART}}") right 10px bottom 10px/34% no-repeat; image-rendering:pixelated}
+:root[data-mc-theme="light"] .auth-copy{background-color:#fff}
+.auth-copy h1{font-size:clamp(20px,2.6vw,34px)}
+.auth-copy .eyebrow::before{content:"$ "}
+.auth-copy > p{font-size:14.5px; color:var(--text-2); max-width:46ch}
+.auth-perks{display:flex!important; max-width:46ch} .auth-perks li{color:var(--text-2)!important; font-size:13.5px}
+.auth-note{max-width:46ch}
+.auth-card{background:var(--panel); border:2px solid var(--amber); box-shadow:8px 8px 0 var(--amber-dim); padding:46px clamp(16px,2.6vw,26px) clamp(18px,2.6vw,26px); backdrop-filter:none; overflow:visible}
+.auth-card::before{content:"login.exe"; display:block; position:absolute; left:0; right:0; top:0; height:30px; width:auto; background:var(--amber); color:#0A0907; font-size:12.5px; font-weight:600; padding:5px 10px}
+.auth-card::after{content:"[×]"; position:absolute; right:10px; top:5px; font-size:12.5px; color:#0A0907}
+:root[data-mc-theme="light"] .auth-card::before{background:#111; color:#fff} :root[data-mc-theme="light"] .auth-card::after{color:#fff}
+.auth-tabs{width:100%}
+.auth-head h2{font-size:17px}
+.auth-ico{border:2px solid var(--amber); background:transparent; color:var(--amber)}
+.auth-ico.ok{background:var(--amber); color:#0A0907; box-shadow:none}
+.otp input{background:var(--ink-950); border:1px solid var(--line-strong); font-family:var(--font-display); font-size:20px; color:var(--amber)}
+:root[data-mc-theme="light"] .otp input{background:#fff}
+.otp input:focus-visible{border-color:var(--amber); box-shadow:0 0 0 1px var(--amber), 0 0 16px var(--glow)}
+.otp input.is-filled{border-color:var(--amber)}
+.auth-mfa-offer{border:1px dashed var(--line-strong); background:transparent}
+.auth-session{background:var(--surface); border:1px dashed var(--line-strong)}
+@media (max-width:900px){.auth-grid{grid-template-columns:1fr} .auth-copy{background-image:none} .auth-copy .auth-perks,.auth-copy .auth-note{display:none!important}}

@@ -1,0 +1,57 @@
+/* ——— контакты ——— */
+.sec-row{display:flex; flex-direction:row; justify-content:space-between; align-items:flex-end; gap:12px 32px; flex-wrap:wrap; max-width:none}
+.sec-row > div{display:flex; flex-direction:column; gap:10px; min-width:0}
+.sec-row-note{font-size:14px; color:var(--text-4); margin-block-end:4px}
+.sc-l{font-size:12.5px; color:var(--text-4)}
+.ct-topics{margin-block-end:16px}
+.ct-topics .cat{padding-inline-start:12px}
+
+.ct-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ct-ch{gap:12px; padding:22px}
+.ct-head{display:flex; align-items:center; gap:12px}
+.ct-head > div{display:flex; flex-direction:column; gap:2px; min-width:0}
+.ct-head h3{font-size:18px}
+.ct-ico{flex:none; width:46px; height:46px; border-radius:0; display:grid; place-items:center; color:var(--text); background:var(--panel-solid); border:1px solid var(--line-strong)}
+.ct-ico svg{width:22px; height:22px}
+.ct-sla{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--text-4); font-family:var(--font-mono)}
+.ct-dot{width:7px; height:7px; border-radius:50%; background:var(--ink-600)}
+.is-online .ct-dot{background:var(--status-ok); box-shadow:0 0 8px var(--status-ok)}
+.ct-rec{margin-inline-start:auto; opacity:0; scale:.85; align-self:flex-start}
+.ct-ch.is-rec .ct-rec{opacity:1; scale:1}
+.ct-desc{font-size:14px; color:var(--text-3); text-wrap:pretty; min-height:2.9em}
+.ct-val{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 8px 8px 14px; border:1px solid var(--line); border-radius:0; background:var(--panel-solid)}
+.ct-val b{font-family:var(--font-mono); font-weight:500; font-size:14px; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ct-val .icon-btn{width:34px; height:34px; border-radius:0}
+.ct-val .icon-btn.is-done{color:var(--status-ok); border-color:color-mix(in oklab,var(--status-ok) 45%,var(--line))}
+.ct-ch.is-rec{border-color:color-mix(in oklab,var(--blue-500) 55%,var(--line)); background:color-mix(in oklab,var(--blue-500) 9%,var(--surface)); box-shadow:0 20px 50px -30px var(--glow)}
+.ct-ch.is-rec .ct-ico{color:#fff; background:linear-gradient(180deg,var(--accent-solid),var(--accent-solid-2)); border-color:transparent; box-shadow:0 10px 22px -10px var(--glow)}
+.ct-ch.is-dim{opacity:.72}
+
+.ct-foot{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-block-start:14px}
+.ct-hours,.ct-prep,.ct-legal{display:flex; flex-direction:column; gap:12px; padding:18px 20px; border:1px solid var(--line); border-radius:0; background:var(--tint-2)}
+.ct-week{margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(7,1fr); gap:4px}
+.ct-week li{display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 2px; border-radius:0; background:var(--surface); border:1px solid var(--line); font-size:11.5px; color:var(--text-4)}
+.ct-week li b{font-family:var(--font-mono); font-size:11px; font-weight:500; color:var(--text-2)}
+.ct-week li.is-today{border-color:var(--blue-500); color:var(--accent); background:color-mix(in oklab,var(--blue-500) 12%,var(--surface))}
+.ct-week li.is-today b{color:var(--text)}
+.ct-kv{margin:0; display:flex; flex-direction:column; gap:6px}
+.ct-kv > div{display:flex; justify-content:space-between; gap:12px; font-size:13.5px; padding-block:6px; border-block-end:1px solid var(--line)}
+.ct-kv dt{color:var(--text-4)} .ct-kv dd{margin:0; font-family:var(--font-mono); color:var(--text-2); font-variant-numeric:tabular-nums; text-align:end}
+.ct-legal .link-list a::before{content:"→"; color:var(--accent)}
+@media (prefers-reduced-motion:no-preference){
+  .ct-ch{transition:border-color .25s ease, background-color .25s ease, box-shadow .3s ease, opacity .25s ease}
+  .ct-ico{transition:background-color .25s ease, color .25s ease, box-shadow .3s ease}
+  .ct-rec{transition:opacity .25s var(--ease), scale .25s var(--ease)}
+  .is-online .ct-dot{animation:ctpulse 2s ease-in-out infinite}
+  @keyframes ctpulse{50%{box-shadow:0 0 0 4px color-mix(in oklab,var(--status-ok) 25%,transparent)}}
+}
+@media (max-width:1000px){
+  .ct-grid{grid-template-columns:1fr}
+  .ct-foot{grid-template-columns:1fr}
+  .ct-desc{min-height:0}
+}
+@media (max-width:760px){
+  .ct-ch{padding:16px}
+  .ct-week li{padding:6px 0; font-size:11px} .ct-week li b{font-size:10px}
+  .ct-hours,.ct-prep,.ct-legal{padding:16px}
+}

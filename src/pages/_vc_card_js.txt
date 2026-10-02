@@ -1,0 +1,11 @@
+  /* — карта: наклон за курсором, автовращение на паузе — */
+  var stage = $('cardStage'), tilt = $('cardTilt');
+  if (!reduce && window.matchMedia('(hover: hover)').matches) {
+    stage.addEventListener('pointermove', function(e){
+      var r = stage.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      tilt.style.setProperty('--ty', (x * 26).toFixed(1)); tilt.style.setProperty('--tx', (-8 - y * 22).toFixed(1));
+    });
+    stage.addEventListener('pointerleave', function(){ tilt.style.removeProperty('--ty'); tilt.style.removeProperty('--tx'); });
+  }
+

@@ -1,0 +1,38 @@
+<main>
+  <section class="wrap hx hx-sec">
+    <nav class="crumbs" aria-label="Хлебные крошки">
+      <a href="{{BASE}}catalog.html">catalog</a><span class="sep">/</span>
+      <span aria-current="page">{{CAT_NAME}}</span>
+    </nav>
+    <div class="vt-win lsw">
+      <div class="vt-bar"><span>$ cd catalog/{{CAT_NAME}} &amp;&amp; ls</span><span aria-hidden="true">[_][□][×]</span></div>
+      <div class="ls-body">
+        <h1 class="svc-h1">{{CAT_NAME}}/</h1>
+        <p class="ls-meta">{{CAT_COUNT}} {{CAT_COUNT_WORD}} · {{CAT_FROM}}</p>
+        <p class="ls-lead"># {{CAT_LEAD}}</p>
+        <div class="ls-wall" aria-label="Сервисы раздела">{{CAT_LOGOS}}</div>
+        <div class="hero-cta"><a class="btn btn-primary" href="#list">Выбрать сервис</a><a class="btn btn-ghost" href="{{BASE}}virtual-card.html">Выпустить карту</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap stack">
+    <section class="panel reveal" id="list">
+      <div class="section-head sec-head">
+        <div>
+          <span class="eyebrow">{{CAT_NAME}}</span>
+          <h2>{{CAT_COUNT}} {{CAT_COUNT_WORD}}</h2>
+        </div>
+        <div class="search">
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2 17 17"/></svg>
+          <input id="secSearch" type="search" placeholder="Найти сервис" aria-label="Поиск в разделе" autocomplete="off">
+        </div>
+      </div>
+      <div class="cats" role="tablist" aria-label="Подкатегории" id="secSub"></div>
+      <div class="card-grid sec-grid" id="secGrid" role="list"></div>
+      <div class="tiles-foot" id="secFoot"><span id="secCount" role="status"></span><button type="button" class="btn btn-ghost btn-sm" id="secMore" hidden>Показать ещё</button></div>
+    </section>
+
+{{AFTER}}
+  </div>
+</main>
