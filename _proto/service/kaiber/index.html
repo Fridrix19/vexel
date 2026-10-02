@@ -597,13 +597,14 @@ body.sheet-open{overflow:hidden}
 .wiz-bar{height:20px; border:2px solid var(--line-strong); padding:2px} .wiz-bar i{display:block; height:100%; width:75%; background:repeating-linear-gradient(90deg,var(--amber) 0 10px,transparent 10px 13px)}
 
 /* поддержка — окно ошибки */
-.err-dlg{max-width:860px; border:2px solid var(--pink); background:var(--panel); box-shadow:8px 8px 0 rgba(255,94,126,.25)}
+.err-dlg{border:2px solid var(--pink); background:var(--panel); box-shadow:8px 8px 0 rgba(255,94,126,.25)}
 .err-dlg .vt-bar{background:var(--pink)}
 .err-body{display:grid; grid-template-columns:auto minmax(0,1fr); gap:20px; padding:clamp(18px,3vw,28px)}
 .err-ico{width:58px; height:58px; display:grid; place-items:center; font-family:var(--font-display); font-size:28px; color:#0A0907; background:var(--pink)}
 .err-body h1{font-size:clamp(18px,2.4vw,30px)}
 .err-body p{margin-block-start:10px; font-size:14.5px; color:var(--text-2)}
-.err-opts{list-style:none; margin:0; padding:0 clamp(18px,3vw,28px); display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.err-opts{list-style:none; margin:0; padding:0 clamp(18px,3vw,28px); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px}
+@media (max-width:1100px){.err-opts{grid-template-columns:1fr 1fr}}
 .err-opts a{display:flex; flex-direction:column; gap:2px; padding:10px 12px; border:1px solid var(--line-strong); text-decoration:none; color:var(--text-3); font-size:12.5px}
 .err-opts a::before{content:"( )"; color:var(--pink); font-size:12px}
 .err-opts b{color:var(--text); font-size:14px}
