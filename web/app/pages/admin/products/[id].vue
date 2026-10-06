@@ -36,6 +36,8 @@ async function addKeys() {
 }
 async function revoke(id: string) { await api('DELETE', '/keys/' + id); ok('Ключ отозван'); await load() }
 const planName = (id: string) => r.value.plans.find((x: any) => x.id === id)?.label || 'любой тариф'
+const crumbLabel = useCrumb()
+watchEffect(() => { const v = p.value ? p.value.name : ''; if (v) crumbLabel.value = v })
 </script>
 <template>
   <div v-if="p">

@@ -54,6 +54,8 @@ const who = (t: any) => t.name || t.username
 const time = (v: any) => { const d0 = new Date(v), now = new Date(); return d0.toDateString() === now.toDateString() ? d0.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) : d0.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }) }
 const isImg = (f: any) => f && /^image\//.test(f.mime)
 const OST: Record<string, string> = { paid: 'Оплачен', in_work: 'В работе', need_info: 'Нужны данные', done: 'Исполнен', canceled: 'Отменён', refunded: 'Возврат' }
+const crumbLabel = useCrumb()
+watchEffect(() => { const v = cur.value && route.query.id ? (cur.value.name || cur.value.username || cur.value.email || 'Переписка') : ''; if (v) crumbLabel.value = v })
 </script>
 <template>
   <div class="adm-head"><div><span class="eyebrow">Поддержка</span><h1>Чаты</h1></div><span class="muted">ждут ответа: {{ counts.waiting ?? 0 }}</span></div>

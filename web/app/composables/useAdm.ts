@@ -4,6 +4,9 @@ import { useToast } from 'primevue/usetoast'
 type Me = { admin: { id: string; login: string; name: string; role: string; must_change: boolean } | null; perms: string[] }
 export const useAdminState = () => useState<Me>('adm-me', () => ({ admin: null, perms: [] }))
 
+// подпись текущей карточки для хлебных крошек (заказ, клиент, товар…)
+export const useCrumb = () => useState<string>('adm-crumb', () => '')
+
 export function useAdm() {
   const toast = useToast()
   const me = useAdminState()

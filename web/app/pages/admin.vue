@@ -91,6 +91,7 @@ async function changePw() {
         <span>Вы вошли с временным паролем{{ me.admin.login === 'admin' ? ' admin/admin' : '' }}. Смените его, прежде чем работать дальше.</span>
         <Button size="small" label="Сменить пароль" @click="pw.open = true" />
       </div>
+      <AdmCrumbs v-if="!me.admin.must_change" />
       <NuxtPage v-if="!me.admin.must_change" @changed="loadCounts" />
     </main>
     <nav class="vx-keys" aria-label="Разделы (Alt + цифра)">

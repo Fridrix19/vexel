@@ -682,6 +682,21 @@ body.sheet-open{overflow:hidden}
   .hx .hero-cta .btn{flex:1 1 auto}
 }
 
+/* ——— хлебные крошки: путь в строке под меню, «Назад» — как cd .. ——— */
+.pb-row:has(.crumbbar) .pb-path{display:none}
+.pathbar .crumbbar{display:flex; align-items:center; gap:12px; min-width:0; flex:1}
+.cb-back{flex:none; display:inline-flex; align-items:center; gap:6px; padding:1px 8px; border:1px solid var(--amber); color:var(--amber); text-decoration:none; font-size:12px; line-height:1.5}
+.cb-back:hover{background:var(--amber); color:#0A0907}
+.cb-list{list-style:none; margin:0; padding:0; display:flex; align-items:center; min-width:0; overflow-x:auto; white-space:nowrap; scrollbar-width:none; font-size:12.5px; color:var(--text-3)}
+.cb-list::-webkit-scrollbar{display:none}
+.cb-list::before{content:"vexel@pay:"; color:var(--status-ok)}
+.cb-list li + li::before{content:"/"; color:var(--amber); margin-inline:2px}
+.cb-list li:first-child a{font-size:0} .cb-list li:first-child a::before{content:"~"; font-size:12.5px}
+.cb-list a{color:var(--cyan); text-decoration:none} .cb-list a:hover{color:var(--amber); background:none; text-decoration:underline}
+.cb-list [aria-current]{color:var(--text)}
+.cb-list li:last-child::after{content:"$"; color:var(--text-3); margin-inline-start:6px}
+@media (max-width:560px){.cb-back{padding:1px 6px} .cb-list::before{content:none}}
+
 /* ——— библиотека компонентов: то, что нужно остальным страницам сайта (формы, навигация, карточки, оверлеи) ——— */
 
 /* --- формы: select, textarea, checkbox, radio, switch, поле с кнопкой --- */
@@ -1231,7 +1246,7 @@ input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-ou
       </div>
     </div>
   </div>
-  <div class="pathbar"><div class="wrap pb-row"><span class="pb-path"><b>vexel@pay</b>:<i id="pbPath">~</i>$ <span class="cursor" aria-hidden="true"></span></span><span class="pb-r"><a href="tariffs.html">tariffs</a><a href="contacts.html">contacts</a><span class="pb-on">● СБП online</span></span></div></div>
+  <div class="pathbar"><div class="wrap pb-row"><span class="pb-path"><b>vexel@pay</b>:<i id="pbPath">~</i>$ <span class="cursor" aria-hidden="true"></span></span><nav class="crumbbar" aria-label="Вы здесь"><a class="cb-back" href="index.html" data-back><span aria-hidden="true">←</span> Назад</a><ol class="cb-list"><li><a href="index.html">Главная</a></li><li><span aria-current="page">Вход и регистрация</span></li></ol></nav><span class="pb-r"><a href="tariffs.html">tariffs</a><a href="contacts.html">contacts</a><span class="pb-on">● СБП online</span></span></div></div>
 </header>
 <script>(function(){try{var p=location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'').replace(/\/$/,'').split('/').filter(Boolean),i=p.indexOf('section'),j=p.indexOf('service');var path=i>=0?'/catalog/'+p[i+1]:j>=0?'/catalog/'+p[j+1]:p.length?'/'+p[p.length-1]:'';var e=document.getElementById('pbPath');if(e)e.textContent='~'+path;var c=document.getElementById('mbClock');function t(){var d=new Date();if(c)c.textContent=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}t();setInterval(t,15000);}catch(_){}})();</script>
 
@@ -1972,8 +1987,19 @@ window.MC = (function(){
     });
   }
 
+
+  /* — «Назад» в хлебных крошках: если пришли с этого же сайта — шаг назад по истории, иначе — на уровень выше по ссылке — */
+  function initBack(){
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('[data-back]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      var same = false; try { same = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (_) {}
+      if ((same || a.hasAttribute('data-back-hist')) && history.length > 1) { e.preventDefault(); history.back(); }
+    });
+  }
+
   initPaybar();
   initTheme();
+  initBack();
   initSession();
   syncCatalog();
   initSite();

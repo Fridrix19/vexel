@@ -18,6 +18,8 @@ async function decide(action: string) {
     if (n) { await navigateTo('/admin/kyc/' + n.id); reason.value = ''; birth.value = ''; await load() } else navigateTo('/admin/kyc')
   } finally { busy.value = '' }
 }
+const crumbLabel = useCrumb()
+watchEffect(() => { const v = s.value ? s.value.email : ''; if (v) crumbLabel.value = v })
 </script>
 <template>
   <div v-if="s">

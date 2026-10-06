@@ -682,6 +682,21 @@ body.sheet-open{overflow:hidden}
   .hx .hero-cta .btn{flex:1 1 auto}
 }
 
+/* ——— хлебные крошки: путь в строке под меню, «Назад» — как cd .. ——— */
+.pb-row:has(.crumbbar) .pb-path{display:none}
+.pathbar .crumbbar{display:flex; align-items:center; gap:12px; min-width:0; flex:1}
+.cb-back{flex:none; display:inline-flex; align-items:center; gap:6px; padding:1px 8px; border:1px solid var(--amber); color:var(--amber); text-decoration:none; font-size:12px; line-height:1.5}
+.cb-back:hover{background:var(--amber); color:#0A0907}
+.cb-list{list-style:none; margin:0; padding:0; display:flex; align-items:center; min-width:0; overflow-x:auto; white-space:nowrap; scrollbar-width:none; font-size:12.5px; color:var(--text-3)}
+.cb-list::-webkit-scrollbar{display:none}
+.cb-list::before{content:"vexel@pay:"; color:var(--status-ok)}
+.cb-list li + li::before{content:"/"; color:var(--amber); margin-inline:2px}
+.cb-list li:first-child a{font-size:0} .cb-list li:first-child a::before{content:"~"; font-size:12.5px}
+.cb-list a{color:var(--cyan); text-decoration:none} .cb-list a:hover{color:var(--amber); background:none; text-decoration:underline}
+.cb-list [aria-current]{color:var(--text)}
+.cb-list li:last-child::after{content:"$"; color:var(--text-3); margin-inline-start:6px}
+@media (max-width:560px){.cb-back{padding:1px 6px} .cb-list::before{content:none}}
+
 /* ——— библиотека компонентов: то, что нужно остальным страницам сайта (формы, навигация, карточки, оверлеи) ——— */
 
 /* --- формы: select, textarea, checkbox, radio, switch, поле с кнопкой --- */
@@ -1120,17 +1135,12 @@ input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-ou
       </div>
     </div>
   </div>
-  <div class="pathbar"><div class="wrap pb-row"><span class="pb-path"><b>vexel@pay</b>:<i id="pbPath">~</i>$ <span class="cursor" aria-hidden="true"></span></span><span class="pb-r"><a href="../../tariffs.html">tariffs</a><a href="../../contacts.html">contacts</a><span class="pb-on">● СБП online</span></span></div></div>
+  <div class="pathbar"><div class="wrap pb-row"><span class="pb-path"><b>vexel@pay</b>:<i id="pbPath">~</i>$ <span class="cursor" aria-hidden="true"></span></span><nav class="crumbbar" aria-label="Вы здесь"><a class="cb-back" href="../../section/entertainment/index.html" data-back><span aria-hidden="true">←</span> Назад</a><ol class="cb-list"><li><a href="../../index.html">Главная</a></li><li><a href="../../catalog.html">Каталог</a></li><li><a href="../../section/entertainment/index.html">Развлечения</a></li><li><span aria-current="page">Deezer</span></li></ol></nav><span class="pb-r"><a href="../../tariffs.html">tariffs</a><a href="../../contacts.html">contacts</a><span class="pb-on">● СБП online</span></span></div></div>
 </header>
 <script>(function(){try{var p=location.pathname.replace(/index\.html$/,'').replace(/\.html$/,'').replace(/\/$/,'').split('/').filter(Boolean),i=p.indexOf('section'),j=p.indexOf('service');var path=i>=0?'/catalog/'+p[i+1]:j>=0?'/catalog/'+p[j+1]:p.length?'/'+p[p.length-1]:'';var e=document.getElementById('pbPath');if(e)e.textContent='~'+path;var c=document.getElementById('mbClock');function t(){var d=new Date();if(c)c.textContent=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}t();setInterval(t,15000);}catch(_){}})();</script>
 
 <main>
   <section class="wrap hx hx-svc">
-    <nav class="crumbs" aria-label="Хлебные крошки">
-      <a href="../../catalog.html">catalog</a><span class="sep">/</span>
-      <a href="../../section/entertainment/index.html"><img alt="" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSI+IDxkZWZzPiA8bGluZWFyR3JhZGllbnQgaWQ9InBsYXkiIHgxPSIyMCIgeTE9IjE4IiB4Mj0iNDMiIHkyPSI0MiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPiA8c3RvcCBzdG9wLWNvbG9yPSIjRjQ3MkI2Ii8+IDxzdG9wIG9mZnNldD0iMC41NSIgc3RvcC1jb2xvcj0iIzhCNUNGNiIvPiA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM2MEE1RkEiLz4gPC9saW5lYXJHcmFkaWVudD4gPGxpbmVhckdyYWRpZW50IGlkPSJub3RlIiB4MT0iNDIiIHkxPSIyOCIgeDI9IjUzIiB5Mj0iNDQiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4gPHN0b3Agc3RvcC1jb2xvcj0iIzkzQzVGRCIvPiA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNGOUE4RDQiLz4gPC9saW5lYXJHcmFkaWVudD4gPC9kZWZzPiA8cGF0aCBkPSJNMTggMTguNXYyN0w0MC41IDMyIDE4IDE4LjVaIiBmaWxsPSJ1cmwoI3BsYXkpIi8+IDxwYXRoIGQ9Ik0xOCAxOC41djI3TDQwLjUgMzIgMTggMTguNVoiIHN0cm9rZT0iI0Y4RkJGRiIgc3Ryb2tlLXdpZHRoPSIyLjQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4gPHBhdGggZD0iTTQ1IDI0LjV2MTcuOGMwIDMuMy0yLjMgNS43LTUuNiA1LjctMyAwLTUuMS0xLjgtNS4xLTQuNCAwLTIuOCAyLjItNC44IDUuMS00LjggMS4yIDAgMi4zLjMgMy4yLjhWMjlsMTEtMi44djE0LjFjMCAzLjMtMi4zIDUuNy01LjYgNS43LTMgMC01LjEtMS44LTUuMS00LjQgMC0yLjggMi4yLTQuOCA1LjEtNC44IDEuMiAwIDIuMy4zIDMuMi44IiBmaWxsPSJ1cmwoI25vdGUpIi8+IDxwYXRoIGQ9Ik00NSAyNC41djE3LjhjMCAzLjMtMi4zIDUuNy01LjYgNS43LTMgMC01LjEtMS44LTUuMS00LjQgMC0yLjggMi4yLTQuOCA1LjEtNC44IDEuMiAwIDIuMy4zIDMuMi44VjI5bDExLTIuOHYxNC4xYzAgMy4zLTIuMyA1LjctNS42IDUuNy0zIDAtNS4xLTEuOC01LjEtNC40IDAtMi44IDIuMi00LjggNS4xLTQuOCAxLjIgMCAyLjMuMyAzLjIuOCIgc3Ryb2tlPSIjRjhGQkZGIiBzdHJva2Utd2lkdGg9IjIuMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+IDwvc3ZnPg==">Развлечения</a><span class="sep">/</span>
-      <span aria-current="page">Deezer</span>
-    </nav>
     <div class="vt-win infow">
       <div class="vt-bar"><span>$ vexel info</span><span aria-hidden="true">[_][□][×]</span></div>
       <div class="info-body">
@@ -1832,8 +1842,19 @@ window.MC = (function(){
     });
   }
 
+
+  /* — «Назад» в хлебных крошках: если пришли с этого же сайта — шаг назад по истории, иначе — на уровень выше по ссылке — */
+  function initBack(){
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('[data-back]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      var same = false; try { same = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (_) {}
+      if ((same || a.hasAttribute('data-back-hist')) && history.length > 1) { e.preventDefault(); history.back(); }
+    });
+  }
+
   initPaybar();
   initTheme();
+  initBack();
   initSession();
   syncCatalog();
   initSite();
@@ -1970,9 +1991,9 @@ window.MC = (function(){
     var h1 = document.querySelector('.hsv-copy h1'); if (h1) h1.textContent = name;
     var lg = document.querySelector('.hsv-logo'); if (lg) { var img = lg.querySelector('img'); if (p.icon && img) img.src = p.icon; else lg.classList.add('is-empty'); }
     var lead = h1 && h1.nextElementSibling; if (lead) lead.textContent = (p.description ? p.description + ' ' : '') + 'Оплатите виртуальной картой через СБП — данные и инструкция придут на почту и в кабинет.';
-    var crumb = document.querySelector('.crumbs [aria-current="page"]'); if (crumb) crumb.textContent = name;
-    var cat = MC.CATALOG.categories.filter(function(c){ return c.id === p.category; })[0], cl = document.querySelector('.crumbs a[href*="section/"]');
-    if (cat && cl) { cl.href = (window.MC_BASE || '') + 'section/' + cat.id + '/index.html'; cl.lastChild.textContent = cat.name; var ci = cl.querySelector('img'); if (ci) ci.src = cat.icon; }
+    var crumb = document.querySelector('.crumbbar [aria-current="page"]'); if (crumb) crumb.textContent = name;
+    var cat = MC.CATALOG.categories.filter(function(c){ return c.id === p.category; })[0], cl = document.querySelector('.crumbbar a[href*="section/"]');
+    if (cat && cl) { cl.href = (window.MC_BASE || '') + 'section/' + cat.id + '/index.html'; cl.lastChild.textContent = cat.name; var ci = cl.querySelector('img'); if (ci) ci.src = cat.icon; var bk = document.querySelector('.crumbbar .cb-back'); if (bk) bk.href = cl.href; }
     document.querySelectorAll('h2, .step-hint, #emailHint, #calcSub').forEach(function(el){ el.textContent = el.textContent.replace(/Сервис/g, name); });
   }
   if (SVC) start();

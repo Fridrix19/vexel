@@ -450,8 +450,19 @@ window.MC = (function(){
     });
   }
 
+
+  /* — «Назад» в хлебных крошках: если пришли с этого же сайта — шаг назад по истории, иначе — на уровень выше по ссылке — */
+  function initBack(){
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('[data-back]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      var same = false; try { same = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (_) {}
+      if ((same || a.hasAttribute('data-back-hist')) && history.length > 1) { e.preventDefault(); history.back(); }
+    });
+  }
+
   initPaybar();
   initTheme();
+  initBack();
   initSession();
   syncCatalog();
   initSite();

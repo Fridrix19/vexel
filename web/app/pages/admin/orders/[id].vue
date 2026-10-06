@@ -13,6 +13,8 @@ async function act(name: string, method: string, path: string, body: any, msg: s
 const o = computed(() => r.value?.order)
 const open = computed(() => o.value && ['paid', 'in_work', 'need_info'].includes(o.value.status))
 const fields = computed(() => Object.entries(o.value?.buyer_fields || {}).map(([k, v]) => [(o.value.field_spec || []).find((f: any) => f.key === k)?.label || k, v]))
+const crumbLabel = useCrumb()
+watchEffect(() => { const v = o.value ? 'Заказ ' + o.value.id : ''; if (v) crumbLabel.value = v })
 </script>
 <template>
   <div v-if="o">

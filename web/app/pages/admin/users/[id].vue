@@ -23,6 +23,8 @@ async function block(blocked: boolean) {
   blk.busy = true
   try { await api('POST', `/users/${u.value.id}/block`, { blocked, reason: blk.reason }); ok(blocked ? 'Заблокирован, сессии завершены' : 'Разблокирован'); blk.open = false; await load() } finally { blk.busy = false }
 }
+const crumbLabel = useCrumb()
+watchEffect(() => { const v = u.value ? (u.value.username || u.value.email) : ''; if (v) crumbLabel.value = v })
 </script>
 <template>
   <div v-if="u">

@@ -151,3 +151,19 @@ html, body { overflow-x:hidden }
 }
 @media (max-width: 560px) { .vx-search { display:none } .vx-q { margin-left:auto } }
 @media (max-width: 380px) { .g3, .g4 { grid-template-columns:1fr } }
+
+/* ——— хлебные крошки: строка «cd ..» над страницей ——— */
+.adm-crumbs { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 18px; padding:6px 10px 6px 6px; border:1px dashed var(--line-strong); background:var(--panel); font-size:12.5px }
+.ac-back { display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12.5px; color:#0A0907; background:var(--amber); border:0; padding:4px 10px; cursor:pointer; min-height:28px }
+.ac-back .pi { font-size:11px }
+.ac-back:hover { background:var(--cyan) }
+.ac-back:focus-visible { outline:2px solid var(--cyan); outline-offset:2px }
+.ac-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; align-items:center; min-width:0; color:var(--text-3) }
+.ac-list li { display:inline-flex; align-items:center; min-width:0 }
+.ac-list li + li::before { content:"/"; color:var(--text-4); margin:0 5px }
+.ac-list li:first-child a { font-size:0; text-decoration:none } .ac-list li:first-child a::after { content:"~/admin"; font-size:12.5px; color:var(--ok) }
+.ac-list li:first-child a:hover::after { color:var(--amber) }
+.ac-list a { color:var(--cyan) }
+.ac-list span[aria-current] { color:var(--amber); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:42ch }
+.ac-list li:last-child::after { content:""; display:inline-block; width:.55em; height:1em; margin-left:4px; background:var(--amber); vertical-align:-.15em; animation:blink 1s steps(1) infinite }
+@media (max-width:640px) { .adm-crumbs { margin-bottom:14px } .ac-list span[aria-current] { max-width:24ch } }

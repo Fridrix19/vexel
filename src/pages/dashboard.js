@@ -146,11 +146,23 @@
     var render = R[id]; if (render) render(param, opts);
     cur = id;
     var hash = '#' + id + (param ? ':' + param : '');
-    if (location.hash !== hash) history.replaceState(null, '', hash);
+    if (location.hash !== hash) { if (opts.fromRoute) history.replaceState(null, '', hash); else history.pushState(null, '', hash); }
+    setCrumbs(id, param);
     if (!opts.keepScroll) window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
     closeSheet();
   }
-  function route(){ var h = location.hash.replace('#', ''), p = h.split(':'); if (SCREENS.indexOf(p[0]) < 0) p = ['overview']; go(p[0], p[1]); }
+  function route(){ var h = location.hash.replace('#', ''), p = h.split(':'); if (SCREENS.indexOf(p[0]) < 0) p = ['overview']; go(p[0], p[1], { fromRoute: true }); }
+  /* хлебные крошки кабинета: Главная › Личный кабинет › Раздел › Заказ */
+  var CRUMB = { 'new': 'Новый заказ', orders: 'Мои заказы', order: 'Мои заказы', cards: 'Мои карты', favs: 'Избранное', payments: 'Платежи и возвраты', kyc: 'Верификация', profile: 'Профиль и безопасность', support: 'Поддержка', docs: 'Документы' };
+  function setCrumbs(id, param){
+    var bar = document.querySelector('.crumbbar'); if (!bar) return;
+    var ol = bar.querySelector('.cb-list'), back = bar.querySelector('.cb-back'), base = window.MC_BASE || '';
+    var items = [['Главная', base + 'index.html'], ['Личный кабинет', id === 'overview' ? null : '#overview']];
+    if (id === 'order') { items.push(['Мои заказы', '#orders']); items.push(['Заказ ' + (param || ''), null]); }
+    else if (CRUMB[id]) items.push([CRUMB[id], null]);
+    ol.innerHTML = items.map(function(it){ return '<li>' + (it[1] ? '<a href="' + it[1] + '">' + it[0] + '</a>' : '<span aria-current="page">' + it[0] + '</span>') + '</li>'; }).join('');
+    if (back) back.setAttribute('href', id === 'order' ? '#orders' : id === 'overview' ? base + 'index.html' : '#overview');
+  }
   document.addEventListener('click', function(e){
     var b = e.target.closest('[data-go]'); if (!b || b.closest('.tk')) return;
     e.preventDefault();

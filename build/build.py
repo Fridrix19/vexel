@@ -56,10 +56,22 @@ COMMON=read('base/pricefmt.js')+'\n'+read('base/common.js').replace('/*__CATALOG
 LOGO=svg_uri(HERE+'/brand/logo.svg')
 ART=svg_uri(HERE+'/brand/hero-art.svg')
 
-def assemble(title, body, page_js, nav='vc', showcase=None, after=None, extra_css='', libs=None, pre_js='', m_cy='0.355', m_size='1.35', galaxy=None, m_cx='0.5', base=''):
+# --- хлебные крошки: [(подпись, ссылка или None для текущей)], «Главная» добавляется сама ---
+CUR={}
+def crumbs_html(items, inline=False):
+    if not items: return ''
+    full=[('Главная','index.html')]+list(items)
+    parent=next((h for l,h in reversed(full[:-1]) if h),'index.html')
+    lis=''.join((f'<li><a href="{{{{BASE}}}}{h}">{l}</a></li>' if (h and i<len(full)-1) else f'<li><span aria-current="page">{l}</span></li>') for i,(l,h) in enumerate(full))
+    inner=f'<a class="cb-back" href="{{{{BASE}}}}{parent}" data-back><span aria-hidden="true">←</span> Назад</a><ol class="cb-list">{lis}</ol>'
+    return f'<nav class="crumbbar" aria-label="Вы здесь">{inner}</nav>' if inline else f'<nav class="crumbbar" aria-label="Вы здесь"><div class="wrap cb-row">{inner}</div></nav>'
+
+def assemble(title, body, page_js, nav='vc', showcase=None, after=None, extra_css='', libs=None, pre_js='', m_cy='0.355', m_size='1.35', galaxy=None, m_cx='0.5', base='', crumbs=None):
     head=read('base/head.html').replace('{{TITLE}}',title)
     css=read('base/base.css')+'\n'+read('base/lib.css')+('\n'+extra_css if extra_css else '')
     top=read('base/shell-top.html').replace('{{CUR_CATALOG}}','aria-current="page"' if nav=='catalog' else '').replace('{{CUR_VC}}','aria-current="page"' if nav=='vc' else '').replace('{{CUR_HOW}}','aria-current="page"' if nav=='how' else '').replace('{{CUR_SUPPORT}}','aria-current="page"' if nav=='support' else '').replace('{{CUR_FAQ}}','aria-current="page"' if nav=='faq' else '').replace('{{M_CY}}',m_cy).replace('{{M_CX}}',m_cx).replace('{{M_SIZE}}',m_size)
+    if crumbs is None: crumbs=CUR.pop('crumbs',None)
+    top=top.replace('{{CRUMBS_INLINE}}',crumbs_html(crumbs,inline=True)).replace('{{CRUMBS}}',crumbs_html(crumbs))
     g=dict({'cx':'0.56','cy':'0.74','dx':'400','dy':'-100','size':'1'}, **(galaxy or {}))
     for k,v in g.items(): top=top.replace('{{D_'+k.upper()+'}}',v)
     sc=read('base/showcase.html')
@@ -75,6 +87,7 @@ def assemble(title, body, page_js, nav='vc', showcase=None, after=None, extra_cs
     return out.replace('{{LOGO}}',LOGO).replace('{{ART}}',ART)
 
 def build_vc():
+    CUR['crumbs']=[('Виртуальная карта',None)]
     out=assemble('Виртуальная карта Vexel', read('pages/virtual-card.html'), read('pages/virtual-card.js'), nav='vc',
         showcase={'SHOWCASE_TITLE':'Где работает карта','SHOWCASE_TEXT':'139 сервисов. У каждого — инструкция по привязке.'},
         after={'TL3_TITLE':'Привязка к сервису','TL3_TEXT':'Шаги для вашего сервиса, адрес и индекс для формы оплаты.'})
@@ -159,6 +172,7 @@ def build_service(slug, base='../../'):
         body=body.replace('{{'+k+'}}',v)
     js=read('pages/service.js').replace('/*__SERVICE__*/',json.dumps(svc,ensure_ascii=False))
     others=cat['count']-1
+    CUR['crumbs']=[('Каталог','catalog.html'),(cat['name'],f'section/{cid}/index.html'),(name,None)]
     out=assemble(f'{name} — Vexel', body, js, nav='catalog', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'}, base=base,
         showcase={'SHOWCASE_TITLE':f'Другие сервисы в разделе «{cat["name"]}»','SHOWCASE_TEXT':f'Ещё {others} в этой категории и {len(services)-cat["count"]} в остальном каталоге — все оплачиваются той же картой.'},
         after={'TL3_TITLE':f'Привязка к {short}','TL3_TEXT':f'Где ввести карту в {short}, какой адрес и индекс указать.'})
@@ -174,6 +188,7 @@ def build_service_template():
                 'FACT1_B':'—','FACT1_S':'минимальная цена','FACT3_B':'—','FACT3_S':'тарифы на выбор'}.items():
         body=body.replace('{{'+k+'}}',v)
     js=read('pages/service.js').replace('/*__SERVICE__*/','null')
+    CUR['crumbs']=[('Каталог','catalog.html'),(cat['name'],f"section/{cat['id']}/index.html"),('Сервис',None)]
     out=assemble('Сервис — Vexel', body, js, nav='catalog', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'}, base='../../',
         showcase={'SHOWCASE_TITLE':'Другие сервисы','SHOWCASE_TEXT':'Все оплачиваются той же картой.'},
         after={'TL3_TITLE':'Привязка к сервису','TL3_TEXT':'Где ввести карту, какой адрес и индекс указать.'})
@@ -233,6 +248,7 @@ def build_section(cid):
         body=body.replace('{{'+k+'}}',v)
     sub=json.load(open(f'{B}/pages/section-{cid}.json',encoding='utf-8')) if os.path.exists(f'{B}/pages/section-{cid}.json') else {'subcats':[],'items':{}}
     js=read('pages/section.js').replace('/*__SECTION__*/',json.dumps({'cat':cid,'prices':prices,'subcats':sub['subcats'],'items':sub['items']},ensure_ascii=False))
+    CUR['crumbs']=[('Каталог','catalog.html'),(cat['name'],None)]
     out=assemble(f'{cat["name"]} — Vexel', body, js, nav='catalog', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'}, base='../../',
         after={'TL3_TITLE':'Привязка к сервису','TL3_TEXT':'Шаги для вашего сервиса, адрес и индекс для формы оплаты.'}, extra_css=read('pages/index.css')+'\n'+read('pages/section.css'))
     emit(f'section/{cid}/index.html',out)
@@ -248,11 +264,13 @@ def build_index():
 
 def build_how():
     body=read('pages/how.html')
+    CUR['crumbs']=[('Как это устроено',None)]
     out=assemble('Как это работает — Vexel', body, read('pages/how.js'), nav='how', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'},
         after={'TL3_TITLE':'Привязка к сервису','TL3_TEXT':'Шаги для вашего сервиса, адрес и индекс для формы оплаты.'}, extra_css=read('pages/index.css')+'\n'+read('pages/how.css'))
     emit('how-it-works.html',out)
 
 def build_support():
+    CUR['crumbs']=[('Помощь',None)]
     out=assemble('Поддержка — Vexel', read('pages/support.html'), read('pages/support.js'), nav='support', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'},
         extra_css=read('pages/index.css')+'\n'+read('pages/support.css'))
     emit('support.html',out)
@@ -260,6 +278,7 @@ def build_support():
 def build_faq():
     import re as _re
     n=len(_re.findall(r"\{ id:'", read('pages/faq.js')))
+    CUR['crumbs']=[('Вопросы и ответы',None)]
     out=assemble('Частые вопросы — Vexel', read('pages/faq.html').replace('{{FAQ_COUNT}}',str(n)), read('pages/faq.js'), nav='faq', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'},
         extra_css=read('pages/index.css')+'\n'+read('pages/faq.css'))
     emit('faq.html',out)
@@ -268,6 +287,7 @@ LEGAL={'LEGAL_NAME':'ИП / ООО — уточнить','LEGAL_INN':'—','LEGA
 def build_contacts():
     body=read('pages/contacts.html')
     for k,v in LEGAL.items(): body=body.replace('{{'+k+'}}',v)
+    CUR['crumbs']=[('Помощь','support.html'),('Контакты',None)]
     out=assemble('Контакты — Vexel', body, read('pages/contacts.js'), nav='support', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'},
         extra_css=read('pages/index.css')+'\n'+read('pages/contacts.css'))
     emit('contacts.html',out)
@@ -291,21 +311,25 @@ def build_catalog():
     meta=cat_meta()
     body=read('pages/catalog.html').replace('{{SVC_TOTAL}}',str(len(services)))
     js=read('pages/catalog.js').replace('/*__CATALOG_META__*/',json.dumps({'cats':meta},ensure_ascii=False))
+    CUR['crumbs']=[('Каталог',None)]
     out=assemble('Каталог — Vexel', body, js, nav='catalog', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'},
         extra_css=read('pages/index.css')+'\n'+read('pages/catalog.css'))
     emit('catalog.html',out)
 
 def build_tariffs():
+    CUR['crumbs']=[('Тарифы и комиссии',None)]
     out=assemble('Тарифы и комиссии — Vexel', read('pages/tariffs.html'), read('pages/tariffs.js'), nav='none', m_cy='0.21', m_size='0.9', galaxy={'cx':'0.66','cy':'0.42','dx':'0','dy':'0','size':'2.4'},
         extra_css=read('pages/index.css')+'\n'+read('pages/faq.css')+'\n.tf-note{margin-block-start:14px; color:var(--text-4); font-size:14px}')
     emit('tariffs.html',out)
 
 def build_login():
+    CUR['crumbs']=[('Вход и регистрация',None)]
     out=assemble('Вход и регистрация — Vexel', read('pages/login.html'), read('pages/login.js'), nav='none', m_cy='0.17', m_size='0.8', galaxy={'cx':'0.33','cy':'0.9','dx':'0','dy':'0','size':'2'},
         extra_css=read('pages/login.css'))
     emit('login.html',out)
 
 def build_dashboard():
+    CUR['crumbs']=[('Личный кабинет',None)]
     out=assemble('Личный кабинет — Vexel', read('pages/dashboard.html'), read('pages/dashboard.js'), nav='none', m_cy='0.12', m_size='0.7', galaxy={'cx':'0.1','cy':'0.82','dx':'0','dy':'0','size':'1.3'},
         extra_css=read('pages/login.css')+'\n'+read('pages/dashboard.css'))
     emit('dashboard.html',out)
