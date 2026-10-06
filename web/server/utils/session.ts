@@ -1,6 +1,6 @@
 import type { H3Event } from 'h3'
 
-export const COOKIE = 'mc_sid'
+export const COOKIE = 'vx_sid'
 const DAYS = 30
 
 export type SessionUser = {
