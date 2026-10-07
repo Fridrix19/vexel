@@ -17,7 +17,7 @@
 
   /* ——— сессия ——— */
   var session = null; try { session = JSON.parse(localStorage.getItem('mc-session') || 'null'); } catch (e) {}
-  var USER = { name: 'Фёдор', id: (session && session.id) || '+7 900 ···-··-77', email: 'f•••••c@gmail.com', phone: '+7 900 ···-··-77', kyc: 'basic', mfa: false, since: ago(310) };
+  var USER = { name: 'Алексей', id: (session && session.id) || '+7 900 ···-··-77', email: 'f•••••c@gmail.com', phone: '+7 900 ···-··-77', kyc: 'basic', mfa: false, since: ago(310) };
   if (/@/.test(USER.id)) USER.email = USER.id.replace(/^(.).*(.@.*)$/, '$1•••••$2'); else USER.phone = USER.id;
   var demo = !session, LIVE = false, BAL = 0;
 
@@ -483,7 +483,7 @@
   function profTab(t){ $('profTabs').querySelectorAll('[role="tab"]').forEach(function(x){ x.setAttribute('aria-selected', x.getAttribute('data-pp') === t); }); document.querySelectorAll('.prof-pane').forEach(function(p){ p.hidden = p.getAttribute('data-pp') !== t; }); }
   $('profTabs').addEventListener('click', function(e){ var t = e.target.closest('[role="tab"]'); if (t) profTab(t.getAttribute('data-pp')); });
   function changeContact(what){
-    if (what === 'tg'){ modal({ title: 'Привязать Telegram', sub: 'Откройте бота и отправьте код — он свяжет аккаунт.', body: '<div class="cred"><span class="k">Бот</span><span class="v">@vexel_bot</span></div><div class="cred"><span class="k">Код</span><span class="v">' + String(Math.abs(hash(USER.id))).slice(0, 6) + '</span></div>', foot: [{ label: 'Отмена' }, { label: 'Я отправил код', cls: 'btn-primary', onClick: function(){ USER.tg = 'fridrix_19'; R.profile(); toast('Telegram привязан', 'Статусы заказов будут приходить в бот.', 'ok'); } }] }); return; }
+    if (what === 'tg'){ modal({ title: 'Привязать Telegram', sub: 'Откройте бота и отправьте код — он свяжет аккаунт.', body: '<div class="cred"><span class="k">Бот</span><span class="v">@vexel_bot</span></div><div class="cred"><span class="k">Код</span><span class="v">' + String(Math.abs(hash(USER.id))).slice(0, 6) + '</span></div>', foot: [{ label: 'Отмена' }, { label: 'Я отправил код', cls: 'btn-primary', onClick: function(){ USER.tg = 'alex_demo'; R.profile(); toast('Telegram привязан', 'Статусы заказов будут приходить в бот.', 'ok'); } }] }); return; }
     if (what === 'tgoff'){ delete USER.tg; R.profile(); toast('Telegram отвязан', '', 'ok'); return; }
     var isP = what === 'phone';
     modal({ title: isP ? 'Новый телефон' : 'Новая почта', sub: 'Подтвердим кодом на старый контакт, затем на новый.', body: '<div class="field"><label for="ncVal">' + (isP ? 'Телефон' : 'Почта') + '</label><input id="ncVal" type="text" inputmode="' + (isP ? 'tel' : 'email') + '" placeholder="' + (isP ? '+7 900 000-00-00' : 'mail@example.ru') + '"></div>', foot: [{ label: 'Отмена' }, { label: 'Продолжить', cls: 'btn-primary', onClick: function(){ var v = $('ncVal').value.trim(); if (v.length < 5){ $('ncVal').focus(); return false; } setTimeout(function(){ stepUp('Подтвердите смену', 'Код отправили на текущий ' + (isP ? 'телефон' : 'адрес') + ' ' + (isP ? USER.phone : USER.email) + '.', function(){ if (isP) USER.phone = v; else USER.email = v.replace(/^(.).*(.@.*)$/, '$1•••••$2'); SESSIONS = SESSIONS.filter(function(s){ return s.cur; }); R.profile(); toast('Контакт обновлён', 'Остальные сессии завершены для безопасности.', 'ok'); }); }, 50); } }] });
@@ -766,7 +766,7 @@
       var t = ta.value.trim(), f = fi.files[0]; if (!t && !f) return;
       var btn = form.querySelector('[type=submit]'); btn.disabled = true;
       var req;
-      if (f) { var fd = new FormData(); fd.append('text', t); if (orderId) fd.append('order_id', orderId); fd.append('file', f); req = fetch('/api/chats/send', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function(r){ return r.json().then(function(j){ if (!r.ok) { var e = new Error(j.message || 'Не отправилось'); throw e; } return j; }); }); }
+      if (f) req = MC.shrinkFiles([f]).then(function(fs){ var fd = new FormData(); fd.append('text', t); if (orderId) fd.append('order_id', orderId); fd.append('file', fs[0]); return MC.upload('/chats/send', fd); });
       else req = MC.api('POST', '/chats/send', { text: t, order_id: orderId || undefined });
       req.then(function(r){ btn.disabled = false; ta.value = ''; fi.value = ''; fl.hidden = true; msgs.push(r.message); last = r.message.id; draw(); }, function(e){ btn.disabled = false; toast('Не отправилось', e.message, 'err'); });
     }
@@ -843,9 +843,9 @@
 
   // верификация: загрузка файлов на ручную проверку
   function kycUpload(list){
-    var fd = new FormData(), n = 0; [].forEach.call(list, function(f){ fd.append('files', f); n++; }); if (!n) return;
+    var n = (list && list.length) || 0; if (!n) return;
     toast('Отправляем файлы', n + ' ' + MC.plural(n, ['файл', 'файла', 'файлов']));
-    fetch('/api/kyc', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function(r){ return r.json().then(function(j){ if (!r.ok) { var e = new Error(j.message || 'Не удалось загрузить'); e.code = j.data && j.data.code; throw e; } return j; }); })
+    MC.shrinkFiles(list).then(function(files){ var fd = new FormData(); files.forEach(function(f){ fd.append('files', f); }); return MC.upload('/kyc', fd); })
       .then(function(){ [].forEach.call(list, function(f){ kycFiles.push({ n: f.name, s: (f.size / 1024 / 1024).toFixed(1) + ' МБ' }); }); return load(); })
       .then(function(){ R.kyc(); toast('Документы на проверке', 'Результат придёт в уведомления и на почту.', 'ok'); }, fail);
   }

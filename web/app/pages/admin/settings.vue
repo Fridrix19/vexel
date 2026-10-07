@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { api, ok } = useAdm()
+const { api, ok, warn } = useAdm()
 const s = ref<any>(null), domains = ref(''), busy = ref(''), to = ref('')
 const contacts = ref({ email: '', telegram: '', max: '' })
 const KIND: Record<string, string> = { offer: 'Публичная оферта', privacy: 'Политика конфиденциальности', tariffs: 'Тарифы' }
@@ -13,6 +13,8 @@ async function saveContacts() { busy.value = 'c'; try { await api('POST', '/sett
 async function publish() {
   busy.value = 'p'
   try {
+    const lim = Number((useRuntimeConfig().public as any).uploadMax) || 0
+    if (lim && doc.value.file && doc.value.file.size > lim) { warn('Файл слишком большой', 'На бета-стенде файлы — до 4 МБ.'); return }
     const f = new FormData(); f.append('kind', doc.value.kind); f.append('version', doc.value.version); f.append('title', doc.value.title || KIND[doc.value.kind]); f.append('note', doc.value.note)
     if (doc.value.file) f.append('file', doc.value.file); else f.append('url', doc.value.url)
     await api('POST', '/settings/documents', f)

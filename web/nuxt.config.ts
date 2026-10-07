@@ -2,6 +2,9 @@ import { fileURLToPath } from 'node:url'
 import Vexel from './app/theme/vexel'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
+// Vercel: бета-стенд — secure-cookie, коды на экране, загрузки до 4,4 МБ, сборка в корень репозитория (.vercel/output)
+const onVercel = !!process.env.VERCEL
+const beta = onVercel || process.env.NUXT_PUBLIC_BETA === 'true'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-09-01',
@@ -32,12 +35,16 @@ export default defineNuxtConfig({
     mailFrom: 'noreply@vexel.ru',
     mailFromName: 'Vexel',
     paymentProvider: 'test',    // NUXT_PAYMENT_PROVIDER: test | … (боевой — позже)
-    cookieSecure: false,        // NUXT_COOKIE_SECURE=true за HTTPS
-    devCodes: false,            // NUXT_DEV_CODES=true — код приходит в ответе API (только стенд)
+    cookieSecure: onVercel,     // NUXT_COOKIE_SECURE=true за HTTPS
+    devCodes: beta,             // NUXT_DEV_CODES=true — код приходит в ответе API (только стенд)
     adminNotifyEmail: '',       // NUXT_ADMIN_NOTIFY_EMAIL — куда слать о новых заказах, KYC и возвратах
-    public: { siteUrl: '' },    // NUXT_PUBLIC_SITE_URL — для ссылок в письмах, напр. https://vexel.onrender.com
+    public: { siteUrl: '', beta, uploadMax: onVercel ? 4_400_000 : 0 },    // NUXT_PUBLIC_SITE_URL — для ссылок в письмах, напр. https://vexel.onrender.com
   },
   nitro: {
+    // на Vercel кладём результат туда, где его ищет платформа: <repo>/.vercel/output
+    ...(onVercel ? { output: { dir: root + '.vercel/output' } } : {}),
+    // на Vercel кладём результат туда, где его ищет платформа: <repo>/.vercel/output
+    ...(onVercel ? { output: { dir: root + '.vercel/output' }, vercel: { config: { crons: [{ path: '/api/cron/rate', schedule: '0 5 * * *' }] } as any } } : {}),
     // прототип отдаётся как статика; API — /api/*; админка — /admin (Nuxt + PrimeVue)
     // общая страница сервиса для товаров из админки (см. server/routes/service)
     serverAssets: [{ baseName: 'tpl', dir: root + '_proto/service/_new' }],

@@ -27,6 +27,8 @@ export const sha256 = (s: string) => createHash('sha256').update(s).digest('hex'
 function secret() {
   const s = useRuntimeConfig().secret || process.env.NUXT_SECRET
   if (!s) {
+    // бета на Vercel без NUXT_SECRET: стабильный ключ из адреса базы (меняется только вместе с базой)
+    if (process.env.VERCEL && process.env.DATABASE_URL) return createHash('sha256').update('beta:' + process.env.DATABASE_URL).digest('hex')
     if (process.env.NODE_ENV === 'production') throw new Error('NUXT_SECRET не задан')
     return 'dev-secret-do-not-use-in-prod'
   }

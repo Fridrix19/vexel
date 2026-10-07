@@ -452,6 +452,44 @@ window.MC = (function(){
 
 
   /* — «Назад» в хлебных крошках: если пришли с этого же сайта — шаг назад по истории, иначе — на уровень выше по ссылке — */
+
+  // загрузки: фото сжимаем в браузере, чтобы вместе уложиться в лимит (на бета-стенде Vercel — 4,4 МБ на запрос)
+  var UPLOAD_MAX = 4400000;
+  function shrinkOne(f, budget){
+    if (f.size <= budget || !/^image\/(jpeg|png|webp)$/.test(f.type) || !window.createImageBitmap) return Promise.resolve(f);
+    return createImageBitmap(f).then(function(bm){
+      var tries = [[2400, .86], [2000, .8], [1600, .75], [1280, .7], [1024, .65]];
+      function step(i){
+        var s = Math.min(1, tries[i][0] / Math.max(bm.width, bm.height)), c = document.createElement('canvas');
+        c.width = Math.round(bm.width * s); c.height = Math.round(bm.height * s);
+        var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(bm, 0, 0, c.width, c.height);
+        return new Promise(function(res){ c.toBlob(res, 'image/jpeg', tries[i][1]); }).then(function(b){
+          if (b && (b.size <= budget || i === tries.length - 1)) return new File([b], f.name.replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg' });
+          return step(i + 1);
+        });
+      }
+      return step(0);
+    }).catch(function(){ return f; });
+  }
+  function shrinkFiles(list){
+    var files = [].slice.call(list || []), budget = Math.floor((UPLOAD_MAX - 60000) / Math.max(1, files.length));
+    return Promise.all(files.map(function(f){ return shrinkOne(f, budget); })).then(function(out){
+      var total = out.reduce(function(s, f){ return s + f.size; }, 0);
+      if (total > UPLOAD_MAX) { var e = new Error('Файлы слишком большие: вместе — до 4 МБ. Сожмите PDF или отправьте фото по одному.'); e.code = 'too_big'; throw e; }
+      return out;
+    });
+  }
+  function upload(path, fd){
+    return fetch('/api' + path, { method: 'POST', body: fd, credentials: 'same-origin' }).then(function(r){
+      return r.text().then(function(txt){
+        var j = null; try { j = JSON.parse(txt); } catch (_) {}
+        if (r.status === 413) { var e1 = new Error('Файл слишком большой для отправки — до 4 МБ.'); e1.code = 'too_big'; throw e1; }
+        if (!r.ok) { var e = new Error((j && j.message) || 'Не удалось отправить'); e.code = j && j.data && j.data.code; throw e; }
+        return j;
+      });
+    });
+  }
+
   function initBack(){
     document.addEventListener('click', function(e){
       var a = e.target.closest && e.target.closest('[data-back]'); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
@@ -469,5 +507,5 @@ window.MC = (function(){
   initTrack();
   initNumbers();
 
-  return { CATALOG: CATALOG, RATE: 80.2254, charged: charged, reduce: reduce, usd: usd, rub: rub, bump: bump, plural: plural, $: $, initShowcase: initShowcase, initReveal: initReveal, api: api, isLive: isLive, kop: kop, uid: uid, me: me, checkout: checkout, liveCatalog: liveCatalog, slugOf: slugOf, vcPricing: vcPricing, site: site, contacts: CONTACTS, docs: DOCS, applyDocs: applyDocs, recipient: recipient, initReviews: initReviews, initFav: initFav, dirTiles: dirTiles };
+  return { CATALOG: CATALOG, RATE: 80.2254, charged: charged, reduce: reduce, usd: usd, rub: rub, bump: bump, plural: plural, $: $, initShowcase: initShowcase, initReveal: initReveal, api: api, isLive: isLive, kop: kop, uid: uid, me: me, checkout: checkout, liveCatalog: liveCatalog, slugOf: slugOf, vcPricing: vcPricing, site: site, contacts: CONTACTS, docs: DOCS, applyDocs: applyDocs, recipient: recipient, initReviews: initReviews, initFav: initFav, dirTiles: dirTiles, shrinkFiles: shrinkFiles, upload: upload };
 })();

@@ -99,6 +99,16 @@
   function busy(btn, on, text){ btn.classList.toggle('is-loading', on); btn.disabled = on; if (text && !on) btn.textContent = text; }
 
 
+  /* — бета-стенд: подсказка с тестовым входом — */
+  if (MC.site) MC.site().then(function(s){
+    if (!s || !s.beta) return;
+    var form = $('scrLogin'); if (!form || form.querySelector('.beta-hint')) return;
+    var p = document.createElement('p'); p.className = 'hint beta-hint'; p.style.cssText = 'padding:10px 12px;border:1px dashed var(--line-strong);margin:0 0 6px';
+    p.innerHTML = 'Бета-стенд: почта <b>test@gmail.com</b>, пароль <b>test</b> · <button type="button" class="auth-link">подставить</button>';
+    p.querySelector('button').addEventListener('click', function(){ $('loginId').value = 'test@gmail.com'; $('loginPass').value = 'test'; });
+    form.insertBefore(p, form.firstChild);
+  });
+
   /* — вход по паролю — */
   $('scrLogin').addEventListener('submit', function(e){
     e.preventDefault(); alertBox('loginErr', '');

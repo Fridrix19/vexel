@@ -9,7 +9,7 @@ export function db() {
   if (!pool) {
     const url = useRuntimeConfig().databaseUrl || process.env.DATABASE_URL
     if (!url) throw new Error('DATABASE_URL не задан')
-    pool = new pg.Pool({ connectionString: url, max: Number(process.env.PG_POOL_MAX || 5), idleTimeoutMillis: 30_000 })
+    pool = new pg.Pool({ connectionString: url, max: Number(process.env.PG_POOL_MAX || (process.env.VERCEL ? 2 : 5)), idleTimeoutMillis: 30_000 })
   }
   return pool
 }

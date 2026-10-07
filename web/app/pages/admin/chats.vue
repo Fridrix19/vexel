@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // чаты с клиентами как в мессенджере: слева очередь, справа переписка; новые сообщения подтягиваются сами
-const { api, ok, can } = useAdm()
+const { api, ok, warn, can } = useAdm()
 const route = useRoute(), router = useRouter()
 const filter = ref<'waiting' | 'all' | 'closed'>('waiting'), q = ref(''), threads = ref<any[]>([]), counts = ref<any>({})
 const cur = ref<any>(null), msgs = ref<any[]>([]), other = ref<any[]>([]), text = ref(''), file = ref<File | null>(null), busy = ref(false)
@@ -38,6 +38,8 @@ async function send() {
   busy.value = true
   try {
     let body: any = { text: text.value }
+    const lim = Number((useRuntimeConfig().public as any).uploadMax) || 0
+    if (lim && file.value && file.value.size > lim) { warn('Файл слишком большой', 'На бета-стенде файлы — до 4 МБ.'); return }
     if (file.value) { body = new FormData(); body.append('text', text.value); body.append('file', file.value) }
     const r: any = await api('POST', `/chats/${cur.value.id}/send`, body)
     msgs.value.push(r.message); text.value = ''; file.value = null; if (fileIn.value) fileIn.value.value = ''

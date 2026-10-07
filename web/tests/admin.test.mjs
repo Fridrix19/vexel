@@ -174,7 +174,8 @@ test('цены из админки сразу на сайте, новый тов
   assert.equal(page.status, 200); assert.match(page.text, /var SVC = null/)
   assert.equal((await client()('GET', `/service/${slug}`, null, true)).status, 200, 'без слэша — редирект')
   await a('PATCH', '/api/admin/products/' + np.id, { active: false })
-  assert.notEqual((await client()('GET', `/service/${slug}/`, null, true)).status, 200)
+  const off = await client()('GET', `/service/${slug}/`, null, true)   // выключенный товар — уводим в каталог
+  assert.ok(off.status !== 200 || !/var SVC = null/.test(off.text))
   assert.ok(!(await client()('GET', '/api/catalog')).body.products.some(x => x.slug === slug))
   assert.equal((await client()('GET', '/service/cursor/', null, true)).status, 200, 'статичные страницы на месте')
 })

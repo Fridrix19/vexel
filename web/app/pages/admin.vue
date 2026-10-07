@@ -2,6 +2,7 @@
 import logo from '~/assets/logo.svg?url'
 // оболочка админки: проверка входа, строка функциональных клавиш снизу со счётчиками, быстрый поиск, обязательная смена пароля
 const { api, me, can } = useAdm()
+const beta = !!(useRuntimeConfig().public as any).beta   // бета: вход admin / admin, без смены пароля
 const route = useRoute()
 const ready = ref(false)
 const counts = ref<any>({})
@@ -17,7 +18,7 @@ async function loadMe() {
 async function loadCounts() { if (me.value.admin) counts.value = await api('GET', '/summary', undefined, { quiet: true }).catch(() => ({})) }
 let cT: any
 onUnmounted(() => clearInterval(cT))
-onMounted(async () => { await loadMe(); ready.value = true; cT = setInterval(() => { if (!isLogin.value && document.visibilityState === 'visible') loadCounts() }, 30000); if (me.value.admin?.must_change) pw.open = true; else loadCounts() })
+onMounted(async () => { await loadMe(); ready.value = true; cT = setInterval(() => { if (!isLogin.value && document.visibilityState === 'visible') loadCounts() }, 30000); if (me.value.admin?.must_change && !beta) pw.open = true; else loadCounts() })
 watch(() => route.path, () => { if (!isLogin.value) loadCounts() })
 
 // нижняя строка функциональных клавиш, как в файловом менеджере: Alt+1…Alt+0
@@ -87,12 +88,12 @@ async function changePw() {
       <span class="vx-clock">{{ clock }}</span>
     </header>
     <main class="adm-main">
-      <div v-if="me.admin.must_change" class="banner"><i class="pi pi-exclamation-triangle warn" />
+      <div v-if="me.admin.must_change && !beta" class="banner"><i class="pi pi-exclamation-triangle warn" />
         <span>Вы вошли с временным паролем{{ me.admin.login === 'admin' ? ' admin/admin' : '' }}. Смените его, прежде чем работать дальше.</span>
         <Button size="small" label="Сменить пароль" @click="pw.open = true" />
       </div>
-      <AdmCrumbs v-if="!me.admin.must_change" />
-      <NuxtPage v-if="!me.admin.must_change" @changed="loadCounts" />
+      <AdmCrumbs v-if="!me.admin.must_change || beta" />
+      <NuxtPage v-if="!me.admin.must_change || beta" @changed="loadCounts" />
     </main>
     <nav class="vx-keys" aria-label="Разделы (Alt + цифра)">
       <NuxtLink v-for="i in keys" :key="i.to" :to="i.to" :class="['vx-k', { on: isOn(i) }]" :title="'Alt+' + i.k">
@@ -103,7 +104,7 @@ async function changePw() {
         <div v-if="moreOpen" class="vx-menu">
           <div class="vx-menu-h">menu.exe</div>
           <NuxtLink v-for="i in more" :key="i.to" :to="i.to" :class="{ on: isOn(i) }">{{ i.label }}</NuxtLink>
-          <button type="button" @click="pw.open = true; moreOpen = false">Сменить пароль</button>
+          <button v-if="!beta" type="button" @click="pw.open = true; moreOpen = false">Сменить пароль</button>
           <button type="button" class="danger" @click="logout">Выйти</button>
         </div>
       </div>

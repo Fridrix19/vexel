@@ -10,7 +10,8 @@
     "build": "nuxt build",
     "start": "node .output/server/index.mjs",
     "migrate": "node scripts/migrate.mjs",
-    "test": "node --test --test-concurrency=1 tests/*.test.mjs"
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "vercel-build": "node scripts/migrate.mjs && nuxt build"
   },
   "dependencies": {
     "@primeuix/themes": "^1.2.5",

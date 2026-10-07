@@ -6,7 +6,11 @@ OUT=os.environ.get('MC_OUT', REPO+'/_proto'); TMP=os.environ.get('TMPDIR','/tmp'
 DOCTYPE='<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
 try: NODE_PATH=subprocess.run(['npm','root','-g'],capture_output=True,text=True).stdout.strip()
 except Exception: NODE_PATH=''
+def svc_count():
+    n=len(services); w='сервис' if n%10==1 and n%100!=11 else 'сервиса' if 2<=n%10<=4 and not 12<=n%100<=14 else 'сервисов'
+    return n,w
 def emit(rel,out,label=None):
+    n,w=svc_count(); out=out.replace('{{SVC_N}}',str(n)).replace('{{SVC_W}}',w)
     path=os.path.join(OUT,rel); os.makedirs(os.path.dirname(path),exist_ok=True)
     open(path,'w',encoding='utf-8').write(DOCTYPE+out+'\n</html>'); print(label or rel, len(out.encode())); return path
 def svg_uri(p):
@@ -29,10 +33,13 @@ _icon_cache={}
 def cached_icon(slug):
     if slug not in _icon_cache: _icon_cache[slug]=icon(slug)
     return _icon_cache[slug]
+# у бренда свой набор сервисов: build/brand/exclude.json — что убрано из каталога (и из базы миграцией 010)
+EXCLUDE=set(json.load(open(f'{HERE}/brand/exclude.json',encoding='utf-8'))) if os.path.exists(f'{HERE}/brand/exclude.json') else set()
 services=[]
 for x in DATA:
     if x['n']=='Виртуальная карта': continue
     slug=x['l'].split('/')[-1][:-4]
+    if slug in EXCLUDE: continue
     services.append({'n':x['n'],'l':cached_icon(slug),'h':x['h'],'c':CATMAP[x['c']][0],'d':1 if LUM.get(slug,0.5)>0.62 else 0,'slug':slug})
 categories=[{'id':cid,'name':name,'icon':svg_uri(f'{A}/category-icons/{ic}.svg'),'count':sum(1 for s in services if s['c']==cid)} for name,(cid,ic) in CATMAP.items()]
 CATALOG={'categories':categories,'services':[{k:v for k,v in s.items() if k!='slug'} for s in services],'allIcon':svg_uri(f'{A}/category-icons/all.svg'),'catName':{c['id']:c['name'] for c in categories}}
@@ -89,7 +96,7 @@ def assemble(title, body, page_js, nav='vc', showcase=None, after=None, extra_cs
 def build_vc():
     CUR['crumbs']=[('Виртуальная карта',None)]
     out=assemble('Виртуальная карта Vexel', read('pages/virtual-card.html'), read('pages/virtual-card.js'), nav='vc',
-        showcase={'SHOWCASE_TITLE':'Где работает карта','SHOWCASE_TEXT':'139 сервисов. У каждого — инструкция по привязке.'},
+        showcase={'SHOWCASE_TITLE':'Где работает карта','SHOWCASE_TEXT':'{{SVC_N}} {{SVC_W}}. У каждого — инструкция по привязке.'},
         after={'TL3_TITLE':'Привязка к сервису','TL3_TEXT':'Шаги для вашего сервиса, адрес и индекс для формы оплаты.'})
     emit('virtual-card.html',out)
 
@@ -337,7 +344,7 @@ def build_dashboard():
 
 if __name__=='__main__':
     # python3 build.py            — все страницы кроме сервисов
-    # python3 build.py all        — всё, включая 139 страниц сервисов
+    # python3 build.py all        — всё, включая страницы всех сервисов
     # python3 build.py cursor …   — только указанные сервисы (без остальных страниц)
     if sys.argv[1:] and sys.argv[1:]!=['all']:
         for slug in sys.argv[1:]: build_service(slug)

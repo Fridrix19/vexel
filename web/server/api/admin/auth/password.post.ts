@@ -1,6 +1,7 @@
 // смена своего пароля (обязательна после входа admin/admin)
 export default defineEventHandler(async (e) => {
   const a = await requireAdmin(e)
+  if ((useRuntimeConfig().public as any).beta) fail(403, 'beta', 'На бета-стенде пароль админа не меняется: вход admin / admin.')
   const b = await readBody(e)
   const row = await one(`select password_hash from admins where id = $1`, [a.id])
   if (!(await verifyPassword(String(b?.old ?? ''), row.password_hash))) fail(400, 'bad_password', 'Текущий пароль указан неверно.')

@@ -54,7 +54,7 @@ export async function requireAdmin(e: H3Event, perm?: string) {
   if (!a) fail(401, 'admin_unauthorized', 'Войдите в админку.')
   if (perm && !can(a.role, perm)) fail(403, 'forbidden', 'Недостаточно прав для этого действия.')
   // временный пароль (в том числе admin/admin): пока не сменён, работать нельзя
-  if (perm && a.must_change) fail(403, 'must_change_password', 'Сначала смените временный пароль.')
+  if (perm && a.must_change && !(useRuntimeConfig().public as any).beta) fail(403, 'must_change_password', 'Сначала смените временный пароль.')
   return a
 }
 

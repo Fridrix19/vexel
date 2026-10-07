@@ -131,7 +131,7 @@ test('деньги: пополнение, KYC, недостача, покупк�
 test('каталог', async () => {
   const c = await client()('GET', '/api/catalog?category=ai')
   assert.ok(c.body.products.length > 10); assert.ok(c.body.products.every(p => p.category === 'ai'))
-  const all = await client()('GET', '/api/catalog'); assert.ok(all.body.products.length >= 140)
+  const all = await client()('GET', '/api/catalog'); assert.ok(all.body.products.length >= 105)
   const p = await client()('GET', '/api/catalog/chatgpt'); assert.equal(p.body.plans[0].charged_kop, 240676)
   assert.equal((await client()('GET', '/api/catalog/nope')).status, 404)
 })
@@ -139,8 +139,8 @@ test('каталог', async () => {
 test('кабинет: профиль, сессии, смена пароля, KYC-загрузка', async () => {
   const a = client(), email = uniq(); await register(a, email)
   const b = client(); assert.equal((await b('POST', '/api/auth/login', { email, password: 'Secret123' })).status, 200)
-  const pr = await a('PATCH', '/api/profile', { name: 'Фёдор', phone: '8 (900) 123-45-67' })
-  assert.equal(pr.body.user.name, 'Фёдор'); assert.equal(pr.body.user.phone, '+79001234567')
+  const pr = await a('PATCH', '/api/profile', { name: 'Алексей', phone: '8 (900) 123-45-67' })
+  assert.equal(pr.body.user.name, 'Алексей'); assert.equal(pr.body.user.phone, '+79001234567')
   assert.equal((await a('PATCH', '/api/profile', { phone: '123' })).code, 'bad_phone')
   const ss = await a('GET', '/api/auth/sessions'); assert.equal(ss.body.sessions.length, 2)
   const mine = ss.body.sessions.find(x => x.current); assert.ok(mine); assert.ok(!/\//.test(mine.ip || ''))

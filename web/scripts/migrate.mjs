@@ -2,12 +2,14 @@
 // База, где схема уже есть, но нет записей в schema_migrations (ручной накат 001–003), размечается без повторного применения.
 import pg from 'pg'
 import { scryptSync, randomBytes } from 'node:crypto'
+const hashPw = (pw) => { const salt = randomBytes(16); const key = scryptSync(pw.normalize('NFKC'), salt, 32, { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }); return `scrypt$16384$8$1$${salt.toString('base64url')}$${key.toString('base64url')}` }
 import { readdir, readFile } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const dir = join(dirname(fileURLToPath(import.meta.url)), '..', 'server', 'db', 'migrations')
-const url = process.env.DATABASE_URL || process.env.NUXT_DATABASE_URL
+// миграциям нужен прямой адрес базы (Neon даёт его как DATABASE_URL_UNPOOLED), приложению — через пул
+const url = process.env.DATABASE_URL_UNPOOLED || process.env.POSTGRES_URL_NON_POOLING || process.env.DATABASE_URL || process.env.NUXT_DATABASE_URL
 if (!url) { console.error('DATABASE_URL не задан'); process.exit(1) }
 
 const client = new pg.Client({ connectionString: url })
@@ -54,5 +56,18 @@ try {
     const hash = `scrypt$16384$8$1$${salt.toString('base64url')}$${key.toString('base64url')}`
     await client.query(`insert into admins (login, password_hash, name, role, must_change) values ('admin', $1, 'Владелец', 'owner', true)`, [hash])
     console.log('создан админ: admin (смените пароль после входа)')
+  }
+
+  // бета-стенд (Vercel или BETA_DEMO=on): админ admin / admin без смены пароля и тестовый клиент test@gmail.com / test
+  const beta = process.env.BETA_DEMO ? process.env.BETA_DEMO !== 'off' : !!process.env.VERCEL
+  if (beta) {
+    await client.query(`insert into admins (login, password_hash, name, role, must_change) values ('admin', $1, 'Владелец', 'owner', false)
+                        on conflict (login) do update set password_hash = excluded.password_hash, role = 'owner', must_change = false, active = true`, [hashPw('admin')])
+    const offer = (await client.query(`select value #>> '{}' as v from settings where key = 'offer_version'`)).rows[0]?.v ?? null
+    const u = (await client.query(`insert into users (email, username, password_hash, consent_offer, name) values ('test@gmail.com', 'test', $1, $2, 'Тестовый')
+                        on conflict (email) do update set password_hash = excluded.password_hash, status = 'active', failed_logins = 0, locked_until = null
+                        returning id`, [hashPw('test'), offer])).rows[0]
+    await client.query(`insert into user_consents (user_id, document_id) select $1, d.id from (select distinct on (kind) id from documents where published_at <= now() order by kind, published_at desc) d on conflict do nothing`, [u.id])
+    console.log('бета: админ admin / admin, клиент test@gmail.com / test')
   }
 } finally { await client.end() }
