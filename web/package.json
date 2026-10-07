@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "nuxt dev",
@@ -11,7 +11,7 @@
     "start": "node .output/server/index.mjs",
     "migrate": "node scripts/migrate.mjs",
     "test": "node --test --test-concurrency=1 tests/*.test.mjs",
-    "vercel-build": "node scripts/migrate.mjs && nuxt build"
+    "vercel-build": "node scripts/migrate.mjs && nuxt build && node scripts/vercel-out.mjs"
   },
   "dependencies": {
     "@primeuix/themes": "^1.2.5",

@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url'
 import Vexel from './app/theme/vexel'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
-// Vercel: бета-стенд — secure-cookie, коды на экране, загрузки до 4,4 МБ, сборка в корень репозитория (.vercel/output)
+// Vercel: бета-стенд — secure-cookie, коды на экране, загрузки до 4,4 МБ, сборка для Vercel (.vercel/output)
 const onVercel = !!process.env.VERCEL
 const beta = onVercel || process.env.NUXT_PUBLIC_BETA === 'true'
 
@@ -41,10 +41,8 @@ export default defineNuxtConfig({
     public: { siteUrl: '', beta, uploadMax: onVercel ? 4_400_000 : 0 },    // NUXT_PUBLIC_SITE_URL — для ссылок в письмах, напр. https://vexel.onrender.com
   },
   nitro: {
-    // на Vercel кладём результат туда, где его ищет платформа: <repo>/.vercel/output
-    ...(onVercel ? { output: { dir: root + '.vercel/output' } } : {}),
-    // на Vercel кладём результат туда, где его ищет платформа: <repo>/.vercel/output
-    ...(onVercel ? { output: { dir: root + '.vercel/output' }, vercel: { config: { crons: [{ path: '/api/cron/rate', schedule: '0 5 * * *' }] } as any } } : {}),
+    // на Vercel: расписание курса ЦБ; результат сборки — web/.vercel/output, копия в корень — scripts/vercel-out.mjs
+    ...(onVercel ? { vercel: { config: { crons: [{ path: '/api/cron/rate', schedule: '0 5 * * *' }] } as any } } : {}),
     // прототип отдаётся как статика; API — /api/*; админка — /admin (Nuxt + PrimeVue)
     // общая страница сервиса для товаров из админки (см. server/routes/service)
     serverAssets: [{ baseName: 'tpl', dir: root + '_proto/service/_new' }],
